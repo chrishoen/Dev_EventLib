@@ -50,8 +50,6 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   Prn::print(0, "GO1");
-
    struct timespec tSystemTime;
    timespec_get(&tSystemTime, TIME_UTC);
 
@@ -69,6 +67,16 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
+   // Tue, 31 Mar 2020 14:09:27
+   struct timespec tSystemTime;
+   timespec_get(&tSystemTime, TIME_UTC);
+
+   char tTemp1[40];
+   char tTemp2[40];
+   strftime(tTemp1, 40, "%a, %d %b %Y %T", localtime(&tSystemTime.tv_sec));
+   sprintf(tTemp2, "%s.%03ld", tTemp1, tSystemTime.tv_nsec / 1000000);
+
+   Prn::print(0, "GO1 %s", tTemp2);
 }
 
 //******************************************************************************
