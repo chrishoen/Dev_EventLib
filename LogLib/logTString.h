@@ -1,38 +1,88 @@
 #pragma once
-
 /*==============================================================================
-System gain calculator.
+Time stamped string class.
 ==============================================================================*/
+
+#include "risByteContent.h"
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
 #include <string>
-#include "json.h"
+#include <ctime>
+#include <time.h>
+
+namespace Log
+{
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// This base class encapsulates a factory test record. It has methods to
-// extract data from a string and to store it as a json value.
- 
-class BaseFactoryTestRecord
+// Constants.
+
+// Timestamp types.
+static const int cLogSystemTime  = 1;
+static const int cLogProgramTime = 2;
+static const int cLogSessionTime = 3;
+
+// Log prefix type.
+static const int cLogAsAny     = 0;
+static const int cLogAsInput   = 1;
+static const int cLogAsNak     = 2;
+static const int cLogAsOutput  = 3;
+static const int cLogAsSlice   = 4;
+static const int cLogAsPWM     = 5;
+static const int cLogAsTest    = 6;
+static const int cLogAsCMarker = 7;
+static const int cLogAsInfo    = 8;
+static const int cLogAsError   = 9;
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// This class encalsulates a time stamped string. It contains a time stamp
+// that can be set by various sources (system time, program time, session
+// time) and a string. Instances of this class are used to write entries
+// to log files.
+
+class TString
 {
 public:
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
+   // Constants.
+
+   static const int cMaxStringSize = 200;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
    // Members.
 
-   // Json file path.
-   std::string mFilePath;
+   // System time obtained from the system clock.
+   // Time is absolute local time.
+   struct timespec mSystemTime;
 
-   // Json variables.
-   Json::Value mJsonValue;
+   // Program time obtained from high resolution clock.
+   // Time is seconds since program startup.
+   double mProgramTime;
 
-   // True if valid.
-   bool mValidFlag;
+   // Program time obtained from high resolution clock.
+   // Time is seconds since session start.
+   double mSessionTime;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Members.
+
+   // Null terminated string.
+   char mString[cMaxStringSize];
+
+   // Log code. Input, Output, Info, Error, ...
+   int mLogCode;
 
    //***************************************************************************
    //***************************************************************************
@@ -40,101 +90,64 @@ public:
    // Methods.
 
    // Constructor.
-   BaseFactoryTestRecord();
+   TString();
+   TString(const char* aString);
+   TString(std::string aString);
+
+   // Copy constructor and assignment operator.
+   TString(const TString& aRhs);
+   TString& operator= (const TString& aRhs);
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Methods.
 
-   // Read from the json file.
-   void doReadFromJsonFile();
+   // Set the timestamp to the current time.
+   void setTime();
 
-   // Write to the json file.
-   void doWriteToJsonFile();
-
-   // Test function.
-   void test1(const std::string& aString);
-
-   // Read from string sent by da or tta.
-   virtual void fillWithCommandData(const std::string& aString);
+   // Get the timestamp as a string. This is passed in a local buffer.
+   char* getTime(char* aBuffer);
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Methods.
 
-   // Support.
-   void show(int aPrintFilter = 0);
+   // Copy an input string to the member string.
+   void puts(const char* aString);
+
+   // Print to the member string.
+   void print(const char* aFormat, ...);
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   // Send this instance to the log file thread. The log file thread will
+   // eventually delete this instance. Do not use this instance after
+   // sending it. If this is not successful then it deletes itself.
+   void sendToLogFile(int aLogCode = cLogAsAny);
+
+   // Create a new copy of this instance and send it to the log file
+   // thread. The log file thread will eventually delete the new instance.
+   void copyToLogFile(int aLogCode = cLogAsAny);
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   // Show.
+   void show(int aPrintFilter,char* aLabel);
 };
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// These classes encapsulate factory test records for da and tta.
+}//namespace
 
-class FactoryTestRecordDA : public BaseFactoryTestRecord
-{
-public:
-   typedef BaseFactoryTestRecord BaseClass;
 
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Members.
 
-   double mCtrlUnitTestportLoss;
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Methods.
-
-   // Constructor.
-   FactoryTestRecordDA();
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Methods.
-
-   // Read from string sent by tta.
-   void fillWithCommandData(const std::string& aString) override;
-};
-
-class FactoryTestRecordTTA : public BaseFactoryTestRecord
-{
-public:
-   typedef BaseFactoryTestRecord BaseClass;
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Members.
-
-   // TTA gain, averaged from min,center,max
-   double mTTAGainA;
-   double mTTAGainB;
-   double mTestportCouplerLoss;
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Methods.
-
-   // Constructor.
-   FactoryTestRecordTTA();
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Methods.
-
-   // Read from string sent by tta.
-   void fillWithCommandData(const std::string& aString) override;
-};
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
 

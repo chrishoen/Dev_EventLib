@@ -1,6 +1,7 @@
 #pragma once
 
 /*==============================================================================
+Parameters class whose values are read from a command file. 
 ==============================================================================*/
 
 //******************************************************************************
@@ -8,12 +9,13 @@
 //******************************************************************************
 
 #include "risCmdLineParms.h"
+#include "tsDefs.h"
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
-namespace Calc
+namespace Log
 {
 
 //******************************************************************************
@@ -45,7 +47,7 @@ namespace Calc
 // structure. If so, then this class is the root.
 // 
 
-class CalcParms : public Ris::BaseCmdLineParms
+class Parms : public Ris::BaseCmdLineParms
 {
 public:
 
@@ -54,24 +56,42 @@ public:
    //***************************************************************************
    // Constants.
 
-   static const int cMaxStringSize = 200;
-   static const int cMaxObjects = 8;
-   static const int cMaxRafts = 8;
+   static const int cMaxStringSize = 100;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Members.
 
-   // Timer thread period, ms.
-   int  mTimerPeriod;
+   // Log file timestamp type.
+   int mTimeType;
 
-   // Test mode, 1 for thresholder, 2 for classifier.
-   int  mTestMode;
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Members.
 
-   // Initial value.
-   double  mInitialValueA;
-   double  mInitialValueB;
+   // Log file filename.
+   char mLogFilename[cMaxStringSize];
+
+   // If true then the log filename is the full path.
+   bool mFullFilepath;
+
+   // If zero then the log file write is not flushed. If non zero then the
+   // log file is flushed after every N counts.
+   int mFlushModulo;
+
+   // If zero then flush uses fflush.
+   // If one  then flush uses fclose and fopen.
+   int mFlushMode;
+
+   // Thread print level.
+   TS::PrintLevel mPrintLevel;
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Expanded members that are not read from the parms file.
 
    //***************************************************************************
    //***************************************************************************
@@ -80,25 +100,25 @@ public:
 
    // Constructor,
    typedef Ris::BaseCmdLineParms BaseClass;
-   CalcParms();
+   Parms();
    void reset();
+   void show();
 
    // Base class override: Execute a command from the command file to set a 
    // member variable. This is called by the associated command file object
    // for each command in the file.
    void execute(Ris::CmdLineCmd* aCmd) override;
 
-   // Simulate expanded member variables. This is called after the entire
+   // Calculate expanded member variables. This is called after the entire
    // section of the command file has been processed.
    void expand() override;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Methods.
+   // Helpers.
 
-   // Show.
-   void show();
+   static char* asStringTimeType(int aGenType);
 };
 
 //******************************************************************************
@@ -106,10 +126,10 @@ public:
 //******************************************************************************
 // Global instance.
 
-#ifdef _AUTOAUTOPARMS_CPP_
-   CalcParms gCalcParms;
+#ifdef _LOGPARMS_CPP_
+   Parms gParms;
 #else
-   extern CalcParms gCalcParms;
+   extern Parms gParms;
 #endif
 
 //******************************************************************************

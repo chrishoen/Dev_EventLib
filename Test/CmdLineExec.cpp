@@ -1,5 +1,11 @@
 #include "stdafx.h"
 
+#include <string>
+#include <ctime>
+#include <time.h>
+#include <stdarg.h>
+
+
 #include "CmdLineExec.h"
 
 //******************************************************************************
@@ -45,8 +51,16 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
    Prn::print(0, "GO1");
-   Prn::print(Prn::View11, "GO1");
-   Prn::print(Prn::View12, "GO1");
+
+   struct timespec tSystemTime;
+   timespec_get(&tSystemTime, TIME_UTC);
+
+   char tTemp1[40];
+   char tTemp2[40];
+   strftime(tTemp1, 40, "%F %T", localtime(&tSystemTime.tv_sec));
+   sprintf(tTemp2, "%s.%03ld", tTemp1, tSystemTime.tv_nsec / 1000000);
+
+   Prn::print(0, "GO1 %s",tTemp2);
 }
 
 //******************************************************************************
