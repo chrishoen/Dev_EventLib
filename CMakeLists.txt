@@ -9,7 +9,10 @@ include(MyLocalImports.cmake)
 project ("Dev_LogLib")
 my_init_global_import_variables()
 
-add_subdirectory ("sysgaincalc")
+add_subdirectory ("Test")
+return()
+
+add_subdirectory ("LogLib")
 add_subdirectory ("LogTest")
 add_subdirectory ("Test")
 return()
