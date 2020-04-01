@@ -85,14 +85,40 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 {
-   char tString[200];
+   time_t currtime;
 
-   while (true)
+   struct tm* timeinfo;
+
+   time(&currtime);
+
+   timeinfo = gmtime(&currtime);
+
+   time_t utc = mktime(timeinfo);
+
+   timeinfo = localtime(&currtime);
+
+   time_t local = mktime(timeinfo);
+
+
+
+   // Get offset in hours from UTC
+
+   double offsetFromUTC = difftime(utc, local) / 3600;
+
+
+
+   // Adjust for DST
+
+   if (timeinfo->tm_isdst)
+
    {
-      fgets(tString, 200, stdin);
-      printf("CMD %d %s", (int)strlen(tString), tString);
-      if (strcmp(tString, "e\n") == 0) break;
+
+      offsetFromUTC -= 1;
+
    }
+
+   Prn::print(0, "%6.2f", offsetFromUTC);
+
 
 }
 
