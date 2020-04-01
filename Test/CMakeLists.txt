@@ -11,9 +11,21 @@ my_add_pch (Test)
 my_inc_import_RisLib(Test)
 my_lib_import_RisLib(Test)
 
-
+if (MSVC)
+   add_custom_command(
+      TARGET  Test
+      POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy Test.exe c:/aaa_cproc/bin/Test.exe
+      WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_NP_TTA_LogLib/Test)
+elseif(NOT CMAKE_SYSTEM_VERSION EQUAL 101)
+   install(TARGETS sysgaincalc DESTINATION "/opt/prime/bin")
+else()
 add_custom_command(
    TARGET  Test
    POST_BUILD
    COMMAND rsync -azv --chmod=ugo=rwx Test rsync://debian@bby1/prime/bin
    WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_NP_TTA_LogLib/Test)
+endif()
+
+
+
