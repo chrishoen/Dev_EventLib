@@ -6,14 +6,14 @@ include(MyCodeMacros.cmake)
 include(MyGlobalImports.cmake)
 include(MyLocalImports.cmake)
 
-project ("Dev_LogLib")
+project ("Dev_EventLib")
 my_init_global_import_variables()
 
-add_subdirectory ("LogLib")
+add_subdirectory ("EventLib")
 add_subdirectory ("Test")
 return()
 
-add_subdirectory ("LogLib")
+add_subdirectory ("EventLib")
 add_subdirectory ("LogTest")
 add_subdirectory ("Test")
 return()

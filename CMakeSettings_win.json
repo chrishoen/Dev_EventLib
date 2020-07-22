@@ -1,7 +1,7 @@
 ﻿{
   "configurations": [
    {
-      "name": "Dev_NP_TTA_LogLib",
+      "name": "Dev_EventLib",
       "generator": "Ninja",
       "configurationType": "Release",
       "inheritEnvironments": [
