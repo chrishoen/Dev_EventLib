@@ -10,6 +10,7 @@ project ("Dev_EventLib")
 my_init_global_import_variables()
 
 add_subdirectory ("EventLib")
+add_subdirectory ("EventThread")
 add_subdirectory ("Test")
 return()
 

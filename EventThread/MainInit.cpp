@@ -1,10 +1,8 @@
 #include "stdafx.h"
 
 #include "risThreadsProcess.h"
-
-#include "risBaseDir.h"
-#include "risPortableCalls.h"
-#include "autoAutoParms.h"
+#include "someThreadParms.h"
+#include "logLogFileThread.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -13,35 +11,9 @@
 
 void main_initialize(int argc,char** argv)
 {
-   printf("AutoSim Program********************************************BEGIN\n");
-   printf("AutoSim Program********************************************BEGIN\n");
-   printf("AutoSim Program********************************************BEGIN\n\n");
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Set program directory.
-
-   // Set the base directory global variable to the cproc directory path.
-   if (Ris::portableIsWindows())
-   {
-      Ris::setBaseDirectory("c:/aaa_cproc");
-   }
-   else
-   {
-      Ris::setBaseDirectory("/opt/prime");
-   }
-
-   // Set the program working directory to the cproc directory path.
-   Ris::chdirToBaseDirectory();
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Enter process.
-
-   // Set program process for high priority.
-   Ris::Threads::enterProcessHigh();
+   printf("LogThread Program**********************************************BEGIN\n");
+   printf("LogThread Program**********************************************BEGIN\n");
+   printf("LogThread Program**********************************************BEGIN\n\n");
 
    //***************************************************************************
    //***************************************************************************
@@ -49,10 +21,17 @@ void main_initialize(int argc,char** argv)
    // Initialize thread services.
 
    TS::reset();
-   TS::setProgramName("Thresholder");
-   TS::setProgramLogFilepath("log/ThresholderLog.txt");
-   TS::setProgramPrintLevel(TS::PrintLevel(0, 3));
+   TS::setProgramName("LogThread");
+   TS::setProgramPrintLevel(TS::PrintLevel(2, 2));
    TS::initialize();
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Enter process.
+
+   // Enter process.
+   Ris::Threads::enterProcessHigh();
 
    //***************************************************************************
    //***************************************************************************
@@ -65,41 +44,41 @@ void main_initialize(int argc,char** argv)
    Prn::initializePrint();
 
    // Initialize print filters.
-   Prn::setFilter(Prn::View11, true,  1);
-   Prn::setFilter(Prn::View12, false, 1);
-   Prn::setFilter(Prn::View13, false, 1);
-   Prn::setFilter(Prn::View14, false, 1);
-
-   Prn::setFilter(Prn::Show1, true);
-   Prn::setFilter(Prn::Show2, true);
-   Prn::setFilter(Prn::Show3, false);
-   Prn::setFilter(Prn::Show4, false);
-   Prn::setFilter(Prn::Show5, false);
-   Prn::setFilter(Prn::Show6, false);
+   Prn::setFilter(Prn::ThreadInit1,     true);
+   Prn::setFilter(Prn::ThreadRun1,      true);
+   Prn::setFilter(Prn::ThreadRun2,      false);
+   Prn::setFilter(Prn::ThreadRun3,      false);
+   Prn::setFilter(Prn::ThreadRun4,      false);
+   Prn::setFilter(Prn::View11,          true,  1);
+   Prn::setFilter(Prn::View12,          false, 1);
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
+   // Read parameters files.
 
    // Read parameters files.
-   Auto::gAutoParms.reset();
-   Auto::gAutoParms.readSection("default");
+   Some::gThreadParms.reset();
+   Some::gThreadParms.readSection("default");
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Initialize program resources.
+   // Initialize log facility.
 
-   Prn::print(Prn::View11,"AutoSim Program********************************************BEGIN");
+   Log::initializeLogFile();
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Finalize program resourcs.
+// Finalize program resources.
 
 void main_finalize()
 {
+   // Finalize log facility.
+   Log::finalizeLogFile();
+
    // Finalize print facility.
    Prn::finalizePrint();
 
@@ -109,9 +88,9 @@ void main_finalize()
    // Finalize thread services.
    TS::finalize();
 
-   // Done.
+   // done.
    printf("\n");
-   printf("AutoSim Program********************************************END\n\n");
+   printf("LogThread Program**********************************************END\n\n");
 }
 
 //******************************************************************************

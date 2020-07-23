@@ -1,78 +1,50 @@
 #pragma once
 
 /*==============================================================================
-Slow classifier example class
+Some timer thread class.
 ==============================================================================*/
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
-#include "dspSlowThresholder.h"
+#include <random>
+#include "risThreadsThreads.h"
 
-namespace Auto
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+namespace Some
 {
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// This is a class that implments a slow classifier. It addresses the problem
-// of threshold classification of a noisy variable that varies over time.
-// 
-//
+// This is a test timer thread that drives the test qcall thread.
+//   
 
-class SlowClassifier
+class RandomTimerThread : public Ris::Threads::BaseThreadWithTermFlag
 {
 public:
+
+   typedef Ris::Threads::BaseThreadWithTermFlag BaseClass;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Members.
 
-   // Input value.
-   double mValue;
+   // Ident.
+   int mIdent;
 
-   // Output value. Class. This is one of -2,-1,0,1,2.
-   int mClass;
+   // If true then execute periodic function.
+   bool mTPFlag;
 
-   // Previous value of the class.
-   int mLastClass;
-
-   // Slow thresholders.
-   Dsp::SlowThresholder mThresholderM2;
-   Dsp::SlowThresholder mThresholderM1;
-   Dsp::SlowThresholder mThresholderP1;
-   Dsp::SlowThresholder mThresholderP2;
-
-   // True if the input value is declared to be above thrshold. False if 
-   // it is declared to be below threshold. This does not change if neither
-   // condition is declared.
-   bool mAboveFlagM2;
-   bool mAboveFlagM1;
-   bool mAboveFlagP1;
-   bool mAboveFlagP2;
-
-   // True if the above flag has changed after an update.
-   bool mChangeFlagM2;
-   bool mChangeFlagM1;
-   bool mChangeFlagP1;
-   bool mChangeFlagP2;
-   bool mChangeFlag;
-
-   // Fuzzy boolean variable. this is the AND of the fuzzy confidence
-   // vararables for all of the thresholders.
-   // the measurements.
-   Dsp::FuzzyBool mFuzzyConfidence;
-
-   // True if first update after initialization.
-   bool mFirstFlag;
-
-   // Update counter.
-   int mCount;
+   // Random number generator for random timer delay.
+   std::random_device mRandomDevice;
+   std::mt19937       mRandomGen;
+   std::uniform_int_distribution<> mRandomDis;
 
    //***************************************************************************
    //***************************************************************************
@@ -80,34 +52,46 @@ public:
    // Methods.
 
    // Constructor.
-   SlowClassifier();
-   void initialize();
+   RandomTimerThread(int aIdent);
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Methods.
+   // Methods. Thread base class overloads.
 
-   // Classify the input variable according to the thresholder bank.
-   // The change flag is true if the output above flag is different
-   // from its previous value.
-   void doClassify(
-      double aValue,           // Input
-      int&   aClass,           // Output
-      bool&  aChangeFlag);     // Output
+   // Thread init function. This is called by the base class immediately 
+   // after the thread starts running.
+   void threadInitFunction() override;
+
+   // Thread run function. This is called by the base class immediately 
+   // after the thread init function. It runs a loop that sends a qcall
+   // to the qcall test thread and waits for a random time.
+   void threadRunFunction() override;
+
+   // Thread exit function. This is called by the base class immediately
+   // before the thread is terminated.
+   void threadExitFunction() override;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Methods.
-
-   // Show.
-   void show();
+   // Methods. 
 };
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Global singular instance.
+
+#ifdef _SOMETIMERTHREAD_CPP_
+         RandomTimerThread* gRandomTimerThread1;
+         RandomTimerThread* gRandomTimerThread2;
+#else
+extern   RandomTimerThread* gRandomTimerThread1;
+extern   RandomTimerThread* gRandomTimerThread2;
+#endif
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 }//namespace
-
-

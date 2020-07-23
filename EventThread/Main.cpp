@@ -1,12 +1,13 @@
-
 #include "stdafx.h"
 
 #include "risThreadsProcess.h"
-#include "MainInit.h"
 #include "risCmdLineConsole.h"
+#include "logLogFileThread.h"
 #include "CmdLineExec.h"
 
-#include "autoTimerThread.h"
+#include "someRandomTimerThread.h"
+
+#include "MainInit.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -19,18 +20,15 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Begin program.
 
-   main_initialize(argc, argv);
+   main_initialize(argc,argv);
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Launch program threads.
 
-   if (true)
-   {
-      Auto::gTimerThread = new Auto::TimerThread;
-      Auto::gTimerThread->launchThread();
-   }
+   Some::gRandomTimerThread1 = new Some::RandomTimerThread(1);
+   Some::gRandomTimerThread1->launchThread();
 
    //***************************************************************************
    //***************************************************************************
@@ -38,12 +36,13 @@ int main(int argc,char** argv)
    // Show program threads.
 
    Ris::Threads::showCurrentThreadInfo();
-   if (Auto::gTimerThread)   Auto::gTimerThread->showThreadInfo();
+   if (Log::gLogFileThread)       Log::gLogFileThread->showThreadInfo();
+   if (Some::gRandomTimerThread1) Some::gRandomTimerThread1->showThreadInfo();
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Execute console command line executive, wait for user to exit.
+   // Execute user command line executive, wait for user to exit.
 
    CmdLineExec* tExec = new CmdLineExec;
    Ris::gCmdLineConsole.execute(tExec);
@@ -54,18 +53,8 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Shutdown program threads.
 
-   if (Auto::gTimerThread)   Auto::gTimerThread->shutdownThread();
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Delete program threads.
-
-   if (Auto::gTimerThread)
-   {
-      delete Auto::gTimerThread;
-      Auto::gTimerThread = 0;
-   }
+   Some::gRandomTimerThread1->shutdownThread();
+   delete Some::gRandomTimerThread1;
 
    //***************************************************************************
    //***************************************************************************
@@ -74,4 +63,13 @@ int main(int argc,char** argv)
 
    main_finalize();
    return 0;
+
+   printf("press enter\n");
+   getchar();
+   return 0;
 }
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
