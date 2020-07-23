@@ -6,9 +6,6 @@
 #include <time.h>
 #include <thread>
 
-#include "someRandomTimerThread.h"
-#include "someThreadParms.h"
-
 #include "logTString.h"
 #include "logLogFileThread.h"
 
@@ -39,7 +36,6 @@ void CmdLineExec::reset()
 
 void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
-   if (aCmd->isCmd("TP"))        Some::gRandomTimerThread1->mTPFlag = aCmd->argBool(1);
    if (aCmd->isCmd("GO1"))       executeGo1(aCmd);
    if (aCmd->isCmd("GO2"))       executeGo2(aCmd);
    if (aCmd->isCmd("GO3"))       executeGo3(aCmd);
@@ -178,7 +174,6 @@ void CmdLineExec::executeGo9(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
 {
-   Some::gThreadParms.show();
 }
 
 //******************************************************************************

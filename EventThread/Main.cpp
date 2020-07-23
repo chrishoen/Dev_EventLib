@@ -5,8 +5,6 @@
 #include "logLogFileThread.h"
 #include "CmdLineExec.h"
 
-#include "someRandomTimerThread.h"
-
 #include "MainInit.h"
 
 //******************************************************************************
@@ -27,9 +25,6 @@ int main(int argc,char** argv)
    //***************************************************************************
    // Launch program threads.
 
-   Some::gRandomTimerThread1 = new Some::RandomTimerThread(1);
-   Some::gRandomTimerThread1->launchThread();
-
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
@@ -37,7 +32,6 @@ int main(int argc,char** argv)
 
    Ris::Threads::showCurrentThreadInfo();
    if (Log::gLogFileThread)       Log::gLogFileThread->showThreadInfo();
-   if (Some::gRandomTimerThread1) Some::gRandomTimerThread1->showThreadInfo();
 
    //***************************************************************************
    //***************************************************************************
@@ -52,9 +46,6 @@ int main(int argc,char** argv)
    //***************************************************************************
    //***************************************************************************
    // Shutdown program threads.
-
-   Some::gRandomTimerThread1->shutdownThread();
-   delete Some::gRandomTimerThread1;
 
    //***************************************************************************
    //***************************************************************************
