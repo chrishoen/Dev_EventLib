@@ -10,7 +10,6 @@
 #include "someThreadParms.h"
 
 #include "logTString.h"
-#include "logParms.h"
 #include "logLogFileThread.h"
 
 #include "risCmdLineConsole.h"
@@ -179,7 +178,6 @@ void CmdLineExec::executeGo9(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
 {
-   Log::gParms.show();
    Some::gThreadParms.show();
 }
 

@@ -5,16 +5,15 @@
 #include "stdafx.h"
 
 #include "risCmdLineFile.h"
-#include "logTString.h"
 
-#define  _LOGPARMS_CPP_
-#include "logParms.h"
+#define  _SOMEVIDEOPARMS_CPP_
+#include "someThreadParms.h"
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
-namespace Log
+namespace Some
 {
 
 //******************************************************************************
@@ -25,21 +24,24 @@ namespace Log
 //******************************************************************************
 // Constructor.
 
-Parms::Parms()
+ThreadParms::ThreadParms()
 {
    reset();
 }
 
-void Parms::reset()
+void ThreadParms::reset()
 {
    BaseClass::reset();
-   BaseClass::setFileName_RelAlphaFiles("/Printer/LogFile_Parms.txt");
-   mFullFilepath = false;
+   BaseClass::setFileName_RelAlphaFiles("/RisLib/Thread_Parms.txt");
 
-   mTimeType = 0;
-   mLogFilename[0] = 0;
-   mFlushModulo = 0;
-   mFlushMode = 0;
+   mTimerThreadPeriod = 0;
+   mFilename[0] = 0;
+
+   mDelayA1 = 0;
+   mDelayA2 = 0;
+   mDelayB1 = 0;
+   mDelayB2 = 0;
+   mShowCode = 0;
 }
 
 //******************************************************************************
@@ -47,21 +49,20 @@ void Parms::reset()
 //******************************************************************************
 // Show.
 
-void Parms::show()
+void ThreadParms::show()
 {
-   char tBuffer[40];
    printf("\n");
-   printf("Parms************************************************ %s\n", mTargetSection);
+   printf("ThreadParms************************************************ %s\n", mTargetSection);
 
    printf("\n");
-   printf("TimeType              %-10s\n", asStringTimeType(mTimeType));
-   printf("LogFilename           %-10s\n", mLogFilename);
-   printf("FullFilepath          %-10s\n", my_string_from_true(mFullFilepath));
-   printf("FlushModulo           %-10d\n", mFlushModulo);
-   printf("FlushMode             %-10d\n", mFlushMode);
+   printf("TimerThreadPeriod     %-10d\n",     mTimerThreadPeriod);
+   printf("Filename              %-10s\n",     mFilename);
 
    printf("\n");
-   printf("PrintLevel            %-10s\n", mPrintLevel.asString(tBuffer));
+   printf("DelayA                %-10d %-4d\n", mDelayA1, mDelayA2);
+   printf("DelayB                %-10d %-4d\n", mDelayB1, mDelayB2);
+   printf("\n");
+   printf("ShowCode              %-10d\n",      mShowCode);
 }
 
 //******************************************************************************
@@ -71,23 +72,27 @@ void Parms::show()
 // member variable.  Only process commands for the target section.This is
 // called by the associated command file object for each command in the file.
 
-void Parms::execute(Ris::CmdLineCmd* aCmd)
+void ThreadParms::execute(Ris::CmdLineCmd* aCmd)
 {
    if (!isTargetSection(aCmd)) return;
 
-   if (aCmd->isCmd("TimeType"))
+   if (aCmd->isCmd("TimerThreadPeriod"))   mTimerThreadPeriod = aCmd->argInt(1);
+
+   if (aCmd->isCmd("DelayA"))
    {
-      if (aCmd->isArgString(1, asStringTimeType(cLogSystemTime)))     mTimeType = cLogSystemTime;
-      if (aCmd->isArgString(1, asStringTimeType(cLogProgramTime)))    mTimeType = cLogProgramTime;
-      if (aCmd->isArgString(1, asStringTimeType(cLogSessionTime)))    mTimeType = cLogSessionTime;
+      mDelayA1 = aCmd->argInt(1);
+      mDelayA2 = aCmd->argInt(2);
    }
 
-   if (aCmd->isCmd("LogFilename"))   aCmd->copyArgString(1, mLogFilename, cMaxStringSize);
-   if (aCmd->isCmd("FullFilepath"))  mFullFilepath = aCmd->argBool(1);
-   if (aCmd->isCmd("FlushModulo"))   mFlushModulo = aCmd->argInt(1);
-   if (aCmd->isCmd("FlushMode"))     mFlushMode = aCmd->argInt(1);
+   if (aCmd->isCmd("DelayB"))
+   {
+      mDelayB1 = aCmd->argInt(1);
+      mDelayB2 = aCmd->argInt(2);
+   }
 
-   if (aCmd->isCmd("PrintLevel"))          mPrintLevel.readArgs(aCmd);
+   if (aCmd->isCmd("ShowCode"))   mShowCode = aCmd->argInt(1);
+
+   if (aCmd->isCmd("Filename"))   aCmd->copyArgString(1, mFilename,cMaxStringSize);
 }
 
 //******************************************************************************
@@ -96,23 +101,8 @@ void Parms::execute(Ris::CmdLineCmd* aCmd)
 // Calculate expanded member variables. This is called after the entire
 // section of the command file has been processed.
 
-void Parms::expand()
+void ThreadParms::expand()
 {
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-
-char* Parms::asStringTimeType(int aTimeType)
-{
-   switch (aTimeType)
-   {
-   case cLogSystemTime: return "SystemTime";
-   case cLogProgramTime: return "ProgramTime";
-   case cLogSessionTime: return "SessionTime";
-   default: return "UNKNOWN";
-   }
 }
 
 //******************************************************************************

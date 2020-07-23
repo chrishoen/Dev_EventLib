@@ -14,7 +14,6 @@ Description:
 #include "risProgramTime.h"
 
 #include "logLogFileThread.h"
-#include "logParms.h"
 #include "logTString.h"
 
 namespace Log
@@ -78,18 +77,7 @@ TString& TString::operator= (const TString& aRhs)
 
 void TString::setTime()
 {
-   switch (gParms.mTimeType)
-   {
-   case cLogSystemTime:
-      timespec_get(&mSystemTime, TIME_UTC);
-      break;
-   case cLogProgramTime:
-      mProgramTime = Ris::getCurrentProgramTime();
-      break;
-   case cLogSessionTime:
-      mSessionTime = Ris::getCurrentProgramTime();
-   break;
-   }
+   timespec_get(&mSystemTime, TIME_UTC);
 }
 
 //******************************************************************************
@@ -99,26 +87,10 @@ void TString::setTime()
 
 char* TString::getTime(char* aBuffer)
 {
-   switch (gParms.mTimeType)
-   {
-   case cLogSystemTime:
-   {
-      char tTemp[40];
-      strftime(tTemp, 40, "%F %T", localtime(&mSystemTime.tv_sec));
-      sprintf(aBuffer, "%s.%03ld", tTemp, mSystemTime.tv_nsec/1000000);
-   }
-   break;
-   case cLogProgramTime:
-   {
-      sprintf(aBuffer, "%10.6f", mProgramTime);
-   }
-   break;
-   case cLogSessionTime:
-   {
-      sprintf(aBuffer, "%10.6f", mSessionTime);
-   }
-   break;
-   }
+   char tTemp[40];
+   strftime(tTemp, 40, "%F %T", localtime(&mSystemTime.tv_sec));
+   sprintf(aBuffer, "%s.%03ld", tTemp, mSystemTime.tv_nsec/1000000);
+
    return &aBuffer[0];
 }
 

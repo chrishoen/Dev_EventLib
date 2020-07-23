@@ -9,13 +9,12 @@ Parameters class whose values are read from a command file.
 //******************************************************************************
 
 #include "risCmdLineParms.h"
-#include "tsDefs.h"
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
-namespace Log
+namespace Some
 {
 
 //******************************************************************************
@@ -47,7 +46,7 @@ namespace Log
 // structure. If so, then this class is the root.
 // 
 
-class Parms : public Ris::BaseCmdLineParms
+class ThreadParms : public Ris::BaseCmdLineParms
 {
 public:
 
@@ -63,30 +62,25 @@ public:
    //***************************************************************************
    // Members.
 
-   // Log file timestamp type.
-   int mTimeType;
-
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Members.
 
-   // Log file filename.
-   char mLogFilename[cMaxStringSize];
+   // Timer thread.
+   int  mTimerThreadPeriod;
 
-   // If true then the log filename is the full path.
-   bool mFullFilepath;
+   // Filename.
+   char mFilename[cMaxStringSize];
 
-   // If zero then the log file write is not flushed. If non zero then the
-   // log file is flushed after every N counts.
-   int mFlushModulo;
+   // Random delay bounds.
+   int mDelayA1;
+   int mDelayA2;
+   int mDelayB1;
+   int mDelayB2;
 
-   // If zero then flush uses fflush.
-   // If one  then flush uses fclose and fopen.
-   int mFlushMode;
-
-   // Thread print level.
-   TS::PrintLevel mPrintLevel;
+   // Print code.
+   int mShowCode;
 
    //***************************************************************************
    //***************************************************************************
@@ -96,11 +90,11 @@ public:
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Methods.
+   // Infrastucture.
 
    // Constructor,
    typedef Ris::BaseCmdLineParms BaseClass;
-   Parms();
+   ThreadParms();
    void reset();
    void show();
 
@@ -112,13 +106,6 @@ public:
    // Calculate expanded member variables. This is called after the entire
    // section of the command file has been processed.
    void expand() override;
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Helpers.
-
-   static char* asStringTimeType(int aGenType);
 };
 
 //******************************************************************************
@@ -126,10 +113,10 @@ public:
 //******************************************************************************
 // Global instance.
 
-#ifdef _LOGPARMS_CPP_
-   Parms gParms;
+#ifdef _SOMEVIDEOPARMS_CPP_
+   ThreadParms gThreadParms;
 #else
-   extern Parms gParms;
+   extern ThreadParms gThreadParms;
 #endif
 
 //******************************************************************************

@@ -9,8 +9,6 @@
 #include "cmnPriorities.h"
 #include "risAlphaDir.h"
 
-#include "logParms.h"
-
 #define  _LOGLOGFILETHREAD_CPP_
 #include "logLogFileThread.h"
 
@@ -26,11 +24,12 @@ LogFileThread::LogFileThread()
 {
    BaseClass::setThreadName("LogFile");
    BaseClass::setThreadPriority(Cmn::gPriorities.mLogFile);
-   BaseClass::setThreadPrintLevel(gParms.mPrintLevel);
+   BaseClass::setThreadPrintLevel(TS::PrintLevel(0, 3));
 
    // Initialize variables.
    mFile = 0;
    mWriteCount = 0;
+   mTerminateFlag = false;
 }
 
 LogFileThread::~LogFileThread()
@@ -44,15 +43,7 @@ LogFileThread::~LogFileThread()
 void LogFileThread::doFileOpenNew()
 {
    // Open the log file.
-   char tBuffer[400];
-   if (gParms.mFullFilepath)
-   {
-      mFile = fopen(gParms.mLogFilename, "w");
-   }
-   else
-   {
-      mFile = fopen(Ris::getAlphaFilePath_Log(tBuffer, gParms.mLogFilename), "w");
-   }
+   mFile = fopen("c:/aaa_prime/EventLib", "w");
 
    if (mFile == 0)
    {
@@ -63,15 +54,7 @@ void LogFileThread::doFileOpenNew()
 void LogFileThread::doFileOpenAppend()
 {
    // Open the log file.
-   char tBuffer[400];
-   if (gParms.mFullFilepath)
-   {
-      mFile = fopen(gParms.mLogFilename, "a+");
-   }
-   else
-   {
-      mFile = fopen(Ris::getAlphaFilePath_Log(tBuffer, gParms.mLogFilename), "a");
-   }
+   mFile = fopen("c:/aaa_prime/EventLib", "a+");
 
    if (mFile == 0)
    {
@@ -222,20 +205,6 @@ void LogFileThread::printString(TString* aString)
    // Metrics.
    mWriteCount++;
 
-   // Flush the file.
-   if (gParms.mFlushModulo != 0 && mWriteCount % gParms.mFlushModulo == 0)
-   {
-      if (gParms.mFlushMode == 0)
-      {
-         doFileFlush();
-      }
-      if (gParms.mFlushMode == 1)
-      {
-         doFileClose();
-         doFileOpenAppend();
-      }
-   }
-
    // Done.
    delete aString;
 }
@@ -276,8 +245,6 @@ bool LogFileThread::tryWriteString(TString* aString)
 // the log file thread.
 void initializeLogFile()
 {
-   gParms.reset();
-   gParms.readSection("default");
    gLogFileThread = new LogFileThread;
    gLogFileThread->launchThread();
 }
@@ -286,9 +253,6 @@ void initializeLogFile()
 // the log file thread.
 void initializeLogFile(char* aParmsFilepath, char* aSection)
 {
-   gParms.reset();
-   gParms.setFilePath(aParmsFilepath);
-   gParms.readSection(aSection);
    gLogFileThread = new LogFileThread;
    gLogFileThread->launchThread();
 }
