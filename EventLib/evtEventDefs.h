@@ -34,7 +34,7 @@ static const int cEvt_Type2 = 2;
 //******************************************************************************
 //******************************************************************************
 // Event severity. Associated with each event is a severity that defines 
-// alarm status.
+// alarm status. Severe and Critical are used to classify active alarms.
 
 static const int cEvt_SevInfo     = 0;
 static const int cEvt_SevWarning  = 1;
