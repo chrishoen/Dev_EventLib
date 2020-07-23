@@ -24,10 +24,11 @@ namespace Evt
 static const int cEvt_Type1 = 1;
 
 // A type two event is a momentary event that does has a boolean state
-// variable associated with it. An example is "the batter hit the ball". It
+// variable associated with it. An example is "Bob drank a cup of coffee". It
 // is analogous to a pulse. The pulse involves two events: a rising edge and
-// a falling edge. A type two event can be set and then cleared. It has a
-// duration that can be considered as the pulse width.
+// a falling edge. A type two event can be set and then cleared. The event is
+// set when Bob starts drinking the coffee and is cleared when he is finished.
+// The duration can be considered as a pulse width.
 static const int cEvt_Type2 = 2;
 
 //******************************************************************************
@@ -40,6 +41,18 @@ static const int cEvt_SevInfo     = 0;
 static const int cEvt_SevWarning  = 1;
 static const int cEvt_SevSevere   = 2;
 static const int cEvt_SevCritical = 3;
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Event identifier. Associated with each event is an identifier. These are
+// in numerical order and are used to index into the event table, which is a 
+// fixed size array of event table records. Care must be taken to keep these
+// integers compact. The meaning of the events is not given here. They can be
+// derived from inspecting the event table.
+
+static const int cEvtId_Test1 = 0;
+static const int cEvtId_Test2 = 1;
 
 //******************************************************************************
 //******************************************************************************
