@@ -18,9 +18,9 @@ print thread class.
 #include "risThreadsSynch.h"
 #include "risLCPointerQueue.h"
 
-#include "logTString.h"
+#include "evtTString.h"
 
-namespace Log
+namespace Evt
 {
 
 //******************************************************************************
@@ -37,7 +37,7 @@ namespace Log
 // It inherits from BaseThread to obtain thread functionality.
 // 
 
-class LogFileThread : public Ris::Threads::BaseThread
+class EventThread : public Ris::Threads::BaseThread
 {
 public:
    typedef Ris::Threads::BaseThread BaseClass;
@@ -98,8 +98,8 @@ public:
    // Methods.
 
    // Constructor.
-   LogFileThread();
-  ~LogFileThread();
+   EventThread();
+  ~EventThread();
 
    //***************************************************************************
    //***************************************************************************
@@ -164,9 +164,9 @@ public:
 // Global singular instance.
 
 #ifdef _LOGLOGFILETHREAD_CPP_
-         LogFileThread* gLogFileThread = 0;
+         EventThread* gEventThread = 0;
 #else
-extern   LogFileThread* gLogFileThread;
+extern   EventThread* gEventThread;
 #endif
 
 //******************************************************************************

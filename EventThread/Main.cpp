@@ -2,7 +2,7 @@
 
 #include "risThreadsProcess.h"
 #include "risCmdLineConsole.h"
-#include "logLogFileThread.h"
+#include "evtEventThread.h"
 #include "CmdLineExec.h"
 
 #include "MainInit.h"
@@ -31,7 +31,7 @@ int main(int argc,char** argv)
    // Show program threads.
 
    Ris::Threads::showCurrentThreadInfo();
-   if (Log::gLogFileThread)       Log::gLogFileThread->showThreadInfo();
+   if (Evt::gEventThread)       Evt::gEventThread->showThreadInfo();
 
    //***************************************************************************
    //***************************************************************************

@@ -6,8 +6,8 @@
 #include <time.h>
 #include <thread>
 
-#include "logTString.h"
-#include "logLogFileThread.h"
+#include "evtTString.h"
+#include "evtEventThread.h"
 
 #include "risCmdLineConsole.h"
 #include "CmdLineExec.h"
@@ -58,7 +58,7 @@ void my_sleep()
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   Log::TString* tString = new Log::TString;
+   Evt::TString* tString = new Evt::TString;
    tString->puts("my_string");
    tString->show(0, "Go1");
    delete tString;
@@ -70,10 +70,10 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
-   Log::TString* tString1 = new Log::TString;
+   Evt::TString* tString1 = new Evt::TString;
    tString1->puts("my_string1");
    my_sleep();
-   Log::TString* tString2 = new Log::TString;
+   Evt::TString* tString2 = new Evt::TString;
    tString2->puts("my_string2");
 
    tString1->show(0, "Go2");
@@ -87,7 +87,7 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 {
-   Log::TString* tString = new Log::TString;
+   Evt::TString* tString = new Evt::TString;
    tString->puts("Go3");
    tString->sendToLogFile();
 }

@@ -13,10 +13,10 @@ Description:
 
 #include "risProgramTime.h"
 
-#include "logLogFileThread.h"
-#include "logTString.h"
+#include "evtEventThread.h"
+#include "evtTString.h"
 
-namespace Log
+namespace Evt
 {
 
 //******************************************************************************
@@ -143,13 +143,13 @@ void TString::sendToLogFile(int aLogCode)
 {
    // Guard.
    bool tPass = true;
-   if (gLogFileThread == 0)         tPass = false;
+   if (gEventThread == 0)         tPass = false;
 
    // The log code is used for the log file prefix.
    this->mLogCode = aLogCode;
 
    // Try to write to the log file thread queue.
-   if (tPass) tPass = gLogFileThread->tryWriteString(this);
+   if (tPass) tPass = gEventThread->tryWriteString(this);
 
    // If not successful then delete this instance.
    if (!tPass) delete this;
@@ -164,7 +164,7 @@ void TString::sendToLogFile(int aLogCode)
 void TString::copyToLogFile(int aLogCode)
 {
    // Guard.
-   if (gLogFileThread == 0) return;
+   if (gEventThread == 0) return;
 
    // Create a new copy of this instance.
    TString* tString = new TString(*this);
@@ -173,7 +173,7 @@ void TString::copyToLogFile(int aLogCode)
    tString->mLogCode = aLogCode;
 
    // Try to write to the log file thread queue.
-   if (!gLogFileThread->tryWriteString(tString))
+   if (!gEventThread->tryWriteString(tString))
    {
       // not successful.
       delete tString;

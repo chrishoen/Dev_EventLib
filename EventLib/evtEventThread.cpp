@@ -10,9 +10,9 @@
 #include "risAlphaDir.h"
 
 #define  _LOGLOGFILETHREAD_CPP_
-#include "logLogFileThread.h"
+#include "evtEventThread.h"
 
-namespace Log
+namespace Evt
 {
 
 //******************************************************************************
@@ -20,7 +20,7 @@ namespace Log
 //******************************************************************************
 // Constructor.
 
-LogFileThread::LogFileThread()
+EventThread::EventThread()
 {
    BaseClass::setThreadName("LogFile");
    BaseClass::setThreadPriority(Cmn::gPriorities.mLogFile);
@@ -32,7 +32,7 @@ LogFileThread::LogFileThread()
    mTerminateFlag = false;
 }
 
-LogFileThread::~LogFileThread()
+EventThread::~EventThread()
 {
 }
 
@@ -40,7 +40,7 @@ LogFileThread::~LogFileThread()
 //******************************************************************************
 //******************************************************************************
 
-void LogFileThread::doFileOpenNew()
+void EventThread::doFileOpenNew()
 {
    // Open the log file.
    mFile = fopen("c:/aaa_prime/EventLib", "w");
@@ -51,7 +51,7 @@ void LogFileThread::doFileOpenNew()
    }
 }
 
-void LogFileThread::doFileOpenAppend()
+void EventThread::doFileOpenAppend()
 {
    // Open the log file.
    mFile = fopen("c:/aaa_prime/EventLib", "a+");
@@ -62,7 +62,7 @@ void LogFileThread::doFileOpenAppend()
    }
 }
 
-void LogFileThread::doFileClose()
+void EventThread::doFileClose()
 {
    if (mFile)
    {
@@ -71,12 +71,12 @@ void LogFileThread::doFileClose()
    }
 }
 
-void LogFileThread::doFileFlush()
+void EventThread::doFileFlush()
 {
    fflush(mFile);
 }
 
-void LogFileThread::doFileWriteTimeStamp()
+void EventThread::doFileWriteTimeStamp()
 {
    TString* tString = new TString("PROGRAM START/////////////////////////////////////////////////////////////");
    tString->sendToLogFile();
@@ -88,7 +88,7 @@ void LogFileThread::doFileWriteTimeStamp()
 // Thread init function. This is called by the base class immediately 
 // after the thread starts running. This opens the file.
 
-void LogFileThread::threadInitFunction()
+void EventThread::threadInitFunction()
 {
    // Initialize the string queue.
    mStringQueue.initialize(cQueueSize);
@@ -105,7 +105,7 @@ void LogFileThread::threadInitFunction()
 //******************************************************************************
 // Thread exit function, base class overload. This closes the file.
 
-void  LogFileThread::threadExitFunction()
+void  EventThread::threadExitFunction()
 {
    // Finalize the string queue.
    mStringQueue.finalize();
@@ -122,7 +122,7 @@ void  LogFileThread::threadExitFunction()
 // semaphore. When it wakes up, it reads a string from the string
 // queue and prints it.
 
-void LogFileThread::threadRunFunction()
+void EventThread::threadRunFunction()
 {
    // Loop to wait for posted events and process them.
    int tCount = 0;
@@ -149,7 +149,7 @@ void LogFileThread::threadRunFunction()
 // Thread shutdown function. Set the termination flag, post to the 
 // semaphore and wait for the thread to terminate.
 
-void LogFileThread::shutdownThread()
+void EventThread::shutdownThread()
 {
    shutdownThreadPrologue();
 
@@ -168,7 +168,7 @@ void LogFileThread::shutdownThread()
 // log file and then deletes it. This is called by the thread run function
 // when it dequeues a string from the queue.
 
-void LogFileThread::printString(TString* aString)
+void EventThread::printString(TString* aString)
 {
    // Local strings.
    char tTemp[40];
@@ -217,7 +217,7 @@ void LogFileThread::printString(TString* aString)
 // It writes to the string queue and posts to the semaphore, which
 // then wakes up the thread run function to process the string queue.
 
-bool LogFileThread::tryWriteString(TString* aString)
+bool EventThread::tryWriteString(TString* aString)
 {
    // Guard.
    if (mTerminateFlag) return false;
@@ -245,29 +245,29 @@ bool LogFileThread::tryWriteString(TString* aString)
 // the log file thread.
 void initializeLogFile()
 {
-   gLogFileThread = new LogFileThread;
-   gLogFileThread->launchThread();
+   gEventThread = new EventThread;
+   gEventThread->launchThread();
 }
 
 // Initialize the log file facility. Read the log parms file and launch 
 // the log file thread.
 void initializeLogFile(char* aParmsFilepath, char* aSection)
 {
-   gLogFileThread = new LogFileThread;
-   gLogFileThread->launchThread();
+   gEventThread = new EventThread;
+   gEventThread->launchThread();
 }
 
 // Shutdown the log file thread.
 void finalizeLogFile()
 {
-   if (gLogFileThread == 0) return;
+   if (gEventThread == 0) return;
 
    // Let things settle.
 // ThreadsthreadSleep(500);
 
-   gLogFileThread->shutdownThread();
-   delete gLogFileThread;
-   gLogFileThread = 0;
+   gEventThread->shutdownThread();
+   delete gEventThread;
+   gEventThread = 0;
 }
 
 //******************************************************************************

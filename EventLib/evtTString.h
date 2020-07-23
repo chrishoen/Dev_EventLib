@@ -13,7 +13,7 @@ Time stamped string class.
 #include <ctime>
 #include <time.h>
 
-namespace Log
+namespace Evt
 {
 
 //******************************************************************************
