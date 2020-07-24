@@ -46,13 +46,17 @@ static const int cEvt_SevCritical = 3;
 //******************************************************************************
 //******************************************************************************
 // Event identifier. Associated with each event is an identifier. These are
-// in numerical order and are used to index into the event table, which is a 
+// in sequential order and are used to index into the event table, which is a 
 // fixed size array of event table records. Care must be taken to keep these
 // integers compact. The meaning of the events is not given here. They can be
 // derived from inspecting the event table.
 
+// Event identifiers.
 static const int cEvtId_Test1 = 0;
 static const int cEvtId_Test2 = 1;
+
+// Maximum number of events. This defines the size of the event table.
+static const int cEvt_MaxNumEvents = 2;
 
 //******************************************************************************
 //******************************************************************************
