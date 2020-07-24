@@ -10,6 +10,7 @@ Provides a class definition the event table.
 
 #include "evtEventDefs.h"
 #include "evtEventTableRecord.h"
+#include "evtEventRecord.h"
 
 namespace Evt
 {
@@ -53,6 +54,14 @@ public:
 
    // Initialize all records.
    void initialize();
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   // Update with an event record.
+   void update(EventRecord& aEventRecord);
 
    //***************************************************************************
    //***************************************************************************

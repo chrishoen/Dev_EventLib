@@ -7,6 +7,7 @@
 #include <thread>
 
 #include "evtEventTableRecord.h"
+#include "evtEventRecord.h"
 #include "evtEventStore.h"
 #include "evtEventThread.h"
 
@@ -73,6 +74,11 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
+   Evt::EventRecord tEventRecord;
+   tEventRecord.mEvtId = Evt::cEvtId_Test1;
+   tEventRecord.mCState = true;
+
+   Evt::gEventStore.mEventTable.update(tEventRecord);
 }
 
 //******************************************************************************
