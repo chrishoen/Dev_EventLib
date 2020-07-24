@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "risThreadsProcess.h"
-#include "evtEventThread.h"
+#include "evtEventStore.h"
 
 //******************************************************************************
 //******************************************************************************
@@ -10,9 +10,9 @@
 
 void main_initialize(int argc,char** argv)
 {
-   printf("LogThread Program**********************************************BEGIN\n");
-   printf("LogThread Program**********************************************BEGIN\n");
-   printf("LogThread Program**********************************************BEGIN\n\n");
+   printf("EventThread Program**********************************************BEGIN\n");
+   printf("EventThread Program**********************************************BEGIN\n");
+   printf("EventThread Program**********************************************BEGIN\n\n");
 
    //***************************************************************************
    //***************************************************************************
@@ -20,7 +20,7 @@ void main_initialize(int argc,char** argv)
    // Initialize thread services.
 
    TS::reset();
-   TS::setProgramName("LogThread");
+   TS::setProgramName("EventThread");
    TS::setProgramPrintLevel(TS::PrintLevel(2, 2));
    TS::initialize();
 
@@ -59,9 +59,9 @@ void main_initialize(int argc,char** argv)
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Initialize log facility.
+   // Initialize the event store.
 
-   //Evt::initializeLogFile();
+   Evt::gEventStore.initialize();
 }
 
 //******************************************************************************
@@ -85,7 +85,7 @@ void main_finalize()
 
    // done.
    printf("\n");
-   printf("LogThread Program**********************************************END\n\n");
+   printf("EventThread Program**********************************************END\n\n");
 }
 
 //******************************************************************************
