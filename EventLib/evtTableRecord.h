@@ -25,8 +25,8 @@ namespace Evt
 //******************************************************************************
 // This is a class that implments a record for enties in the event table. It
 // provides storage for event properties and strings. Some of the properties
-// are temporary, like time of arrival, and apply to occurrences of individual
-// events. Some of the properties are constant, like constant display string
+// are transient, like time of arrival, and apply to occurrences of individual
+// events. Some of the properties are permanent, like constant display string
 // definitions.
 
 class EventTableRecord
