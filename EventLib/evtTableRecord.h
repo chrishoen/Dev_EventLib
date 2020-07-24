@@ -44,6 +44,9 @@ public:
    // Event type.
    int mType;
 
+   // Default severity.
+   int mDefaultSevarity;
+
    // Show string for set.
    char* mShowStringForSet;
 
@@ -62,6 +65,9 @@ public:
    // Sequence number. This is incremented for each individual event that
    // occurs.
    int mSeqNum;
+
+   // Variable severity. This is usually equal to the default.
+   int mSevarity;
 
    // True if a type2 event was set. False if cleared. This is only used
    // by type2 events. This is used to define active alarms.

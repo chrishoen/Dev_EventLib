@@ -32,12 +32,15 @@ EventTableRecord::EventTableRecord()
 
 void EventTableRecord::reset()
 {
-   int mEvtId = 0;
-   int mType = 0;
+   mEvtId = 0;
+   mType = 0;
+   mDefaultSevarity = cEvt_SevInfo;
+
    mShowStringForSet = 0;
    mShowStringForClear = 0;
    timespec mTOA = { 0 };
    mSeqNum = 0;
+   mSevarity = cEvt_SevUseDefault;
    mCState = false;
    mDuration = 0.0;
 }
