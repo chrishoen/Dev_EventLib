@@ -6,7 +6,7 @@
 #include <time.h>
 #include <thread>
 
-#include "evtTableRecord.h"
+#include "evtEventTableRecord.h"
 #include "evtEventThread.h"
 
 #include "risCmdLineConsole.h"

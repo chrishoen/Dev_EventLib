@@ -8,7 +8,7 @@ Description:
 
 #include "stdafx.h"
 
-#include "evtTableRecord.h"
+#include "evtEventTableRecord.h"
 
 namespace Evt
 {
