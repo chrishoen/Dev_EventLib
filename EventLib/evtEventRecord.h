@@ -1,7 +1,7 @@
 #pragma once
 
 /*==============================================================================
-Provides a class definition of event table records.
+Provides a class definition of event records.
 ==============================================================================*/
 
 //******************************************************************************
@@ -17,44 +17,20 @@ namespace Evt
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// This is a class that implments a record for enties in the event table. It
-// provides storage for event properties and strings. Some of the properties
-// are transient, like time of arrival, and apply to occurrences of individual
-// events. Some of the properties are permanent, like constant display string
-// definitions.
-
-class EventTableRecord
+// This is a class that implments a record for occurrences of events. 
+// It contains variables that define the properties of an event.
+// Instances are used to update the event table. 
+class EventRecord
 {
 public:
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Members, permanent. These are assigned at initialization.
+   // Members.
 
    // Event identifier.
    int mEvtId;
-
-   // Event type.
-   int mType;
-
-   // Default severity.
-   int mDefaultSeverity;
-
-   // Show string for set.
-   const char* mShowStringForSet;
-
-   // Show string for clear.
-   const char* mShowStringForClear;
-
-   // Show string for the active alarm list.
-   const char* mShowStringForAlarm;
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
-   // Members, transient. These are set according to the occurrence of
-   // individual events.
 
    // Time of arrival.
    timespec mTOA;
@@ -70,13 +46,8 @@ public:
    // by type2 events. This is used to define active alarms.
    bool mCState;
 
-   // Time difference for a type2 event between the toa of a set and
-   // the toa of a clear.
-   double mDuration;
-
-   // Two arguments that can be passed to and event. An example: The 
-   // temperature went above threshold, arg1 is the temperature and
-   // arg2 is the threshold.
+   // Two arguments that can be passed to an event. An example: The 
+   // temperature went above threshold, arg1 is the temperature.
    char mArgString1[cMaxRecordArgSize];
    char mArgString2[cMaxRecordArgSize];
 
@@ -86,17 +57,8 @@ public:
    // Methods.
 
    // Constructor.
-   EventTableRecord();
+   EventRecord();
    void reset();
-
-   // Initialize.
-   void initialize(
-      int aEvtId,
-      int aType,
-      int aDefaultSeverity,
-      const char* aShowStringForSet,
-      const char* aShowStringForClear,
-      const char* aShowStringForAlarm);
 
    //***************************************************************************
    //***************************************************************************
