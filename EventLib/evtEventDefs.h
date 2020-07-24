@@ -2,8 +2,14 @@
 
 /*==============================================================================
 This file provides a set of constants that are use throughout the event
-processing code.
+processing code. It also provides some common helper functions.
 ==============================================================================*/
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+#include <time.h>
 
 //******************************************************************************
 //******************************************************************************
@@ -37,10 +43,11 @@ static const int cEvt_Type2 = 2;
 // Event severity. Associated with each event is a severity that defines 
 // alarm status. Severe and Critical are used to classify active alarms.
 
-static const int cEvt_SevInfo = 0;
-static const int cEvt_SevWarning  = 1;
-static const int cEvt_SevSevere   = 2;
-static const int cEvt_SevCritical = 3;
+static const int cEvt_SevUseDefault = 0;
+static const int cEvt_SevInfo = 1;
+static const int cEvt_SevWarning  = 2;
+static const int cEvt_SevSevere   = 3;
+static const int cEvt_SevCritical = 4;
 
 //******************************************************************************
 //******************************************************************************
@@ -86,8 +93,13 @@ static const int cDurationCode_Arg2 = 2;
 //******************************************************************************
 // Helpers.
 
+// Get a constant as a string.
 char* get_EvtType_asString(int aType);
 char* get_EvtSeverity_asString(int aSeverity);
+
+// Get a timestamp as a string.
+char* get_timespec_asString(timespec aTimeSpec, char* aBuffer);
+
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
