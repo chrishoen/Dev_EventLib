@@ -63,7 +63,7 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
       "Clear Event for Test1",
       "Alarm for Test1");
 
-   tRecord.show(0);
+   tRecord.show();
 }
 
 //******************************************************************************

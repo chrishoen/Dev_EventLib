@@ -61,7 +61,7 @@ void main_initialize(int argc,char** argv)
    //***************************************************************************
    // Initialize log facility.
 
-   Evt::initializeLogFile();
+   //Evt::initializeLogFile();
 }
 
 //******************************************************************************
@@ -72,7 +72,7 @@ void main_initialize(int argc,char** argv)
 void main_finalize()
 {
    // Finalize log facility.
-   Evt::finalizeLogFile();
+   //Evt::finalizeLogFile();
 
    // Finalize print facility.
    Prn::finalizePrint();
