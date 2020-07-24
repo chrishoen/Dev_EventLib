@@ -57,7 +57,7 @@ char* get_timespec_asString(timespec aTimeSpec, char* aBuffer)
    strftime(tTemp, 40, "%F %T", localtime(&aTimeSpec.tv_sec));
    sprintf(aBuffer, "%s.%03ld", tTemp, aTimeSpec.tv_nsec / 1000000);
 
-   return &aBuffer[0];
+   return aBuffer;
 }
 
 //******************************************************************************
