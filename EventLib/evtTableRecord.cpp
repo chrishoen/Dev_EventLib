@@ -51,9 +51,9 @@ void EventTableRecord::initialize(
    int aEvtId,
    int aType,
    int aDefaultSeverity,
-   char* aShowStringForSet,
-   char* aShowStringForClear,
-   char* aShowStringForAlarm)
+   const char* aShowStringForSet,
+   const char* aShowStringForClear,
+   const char* aShowStringForAlarm)
 {
    mEvtId = aEvtId;
    mType = aType;

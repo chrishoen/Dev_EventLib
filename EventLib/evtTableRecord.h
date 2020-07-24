@@ -48,13 +48,13 @@ public:
    int mDefaultSeverity;
 
    // Show string for set.
-   char* mShowStringForSet;
+   const char* mShowStringForSet;
 
    // Show string for clear.
-   char* mShowStringForClear;
+   const char* mShowStringForClear;
 
    // Show string for the active alarm list.
-   char* mShowStringForAlarm;
+   const char* mShowStringForAlarm;
 
    //***************************************************************************
    //***************************************************************************
@@ -99,9 +99,9 @@ public:
       int aEvtId,
       int aType,
       int aDefaultSeverity,
-      char* aShowStringForSet,
-      char* aShowStringForClear,
-      char* aShowStringForAlarm);
+      const char* aShowStringForSet,
+      const char* aShowStringForClear,
+      const char* aShowStringForAlarm);
 
    //***************************************************************************
    //***************************************************************************
@@ -109,7 +109,7 @@ public:
    // Methods.
 
    // Show.
-   void show(int aPrintFilter);
+   void show(int aPrintFilter = 0);
 };
 
 //******************************************************************************
