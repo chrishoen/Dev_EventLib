@@ -7,6 +7,7 @@
 #include <thread>
 
 #include "evtEventTableRecord.h"
+#include "evtEventStore.h"
 #include "evtEventThread.h"
 
 #include "risCmdLineConsole.h"
@@ -45,7 +46,7 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
    if (aCmd->isCmd("GO7"))       executeGo7(aCmd);
    if (aCmd->isCmd("GO8"))       executeGo8(aCmd);
    if (aCmd->isCmd("GO9"))       executeGo9(aCmd);
-   if (aCmd->isCmd("Parms"))     executeParms(aCmd);
+   if (aCmd->isCmd("Show"))      executeShow(aCmd);
 }
 
 //******************************************************************************
@@ -133,8 +134,11 @@ void CmdLineExec::executeGo9(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 
-void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
+void CmdLineExec::executeShow(Ris::CmdLineCmd* aCmd)
 {
+   aCmd->setArgDefault(1, 0);
+   int tEvtId = aCmd->argInt(1);
+   Evt::gEventStore.mEventTable.showRecord(tEvtId, 0);
 }
 
 //******************************************************************************
