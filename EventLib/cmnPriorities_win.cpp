@@ -24,7 +24,7 @@ namespace Cmn
 Priorities::Priorities()
 {
    mTsPrint           = Ris::Threads::Priority(-1, THREAD_PRIORITY_ABOVE_NORMAL);
-   mLogFile           = Ris::Threads::Priority(-1, THREAD_PRIORITY_LOWEST);
+   mEventThread       = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
    mBinaryComm        = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
    mSerialMsg         = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
    mGCodeComm         = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);

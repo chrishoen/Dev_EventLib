@@ -31,7 +31,7 @@ public:
    // Members.
 
    Ris::Threads::Priority mTsPrint;
-   Ris::Threads::Priority mLogFile;
+   Ris::Threads::Priority mEventThread;
    Ris::Threads::Priority mBinaryComm;
    Ris::Threads::Priority mBinarySim;
    Ris::Threads::Priority mSerialMsg;

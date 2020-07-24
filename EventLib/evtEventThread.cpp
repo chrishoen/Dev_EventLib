@@ -9,7 +9,7 @@
 #include "cmnPriorities.h"
 #include "risAlphaDir.h"
 
-#define  _LOGLOGFILETHREAD_CPP_
+#define  _EVENTTHREAD_CPP_
 #include "evtEventThread.h"
 
 namespace Evt
@@ -22,8 +22,8 @@ namespace Evt
 
 EventThread::EventThread()
 {
-   BaseClass::setThreadName("LogFile");
-   BaseClass::setThreadPriority(Cmn::gPriorities.mLogFile);
+   BaseClass::setThreadName("EventLog");
+   BaseClass::setThreadPriority(Cmn::gPriorities.mEventThread);
    BaseClass::setThreadPrintLevel(TS::PrintLevel(0, 3));
 
    // Initialize variables.
@@ -43,22 +43,22 @@ EventThread::~EventThread()
 void EventThread::doFileOpenNew()
 {
    // Open the log file.
-   mFile = fopen("c:/aaa_prime/EventLib", "w");
+   mFile = fopen("c:/aaa_prime/EventLib/EventLog.txt", "w");
 
    if (mFile == 0)
    {
-      TS::print(0, "LogFileNew open FAIL");
+      TS::print(0, "EventLogNew open FAIL");
    }
 }
 
 void EventThread::doFileOpenAppend()
 {
    // Open the log file.
-   mFile = fopen("c:/aaa_prime/EventLib", "a+");
+   mFile = fopen("c:/aaa_prime/EventLib/EventLog.txt", "a+");
 
    if (mFile == 0)
    {
-      TS::print(0, "LogFileAppend open FAIL");
+      TS::print(0, "EventLogAppend open FAIL");
    }
 }
 
@@ -79,7 +79,7 @@ void EventThread::doFileFlush()
 void EventThread::doFileWriteTimeStamp()
 {
    TString* tString = new TString("PROGRAM START/////////////////////////////////////////////////////////////");
-   tString->sendToLogFile();
+//   tString->sendToEventLog();
 }
 
 //******************************************************************************
@@ -90,6 +90,7 @@ void EventThread::doFileWriteTimeStamp()
 
 void EventThread::threadInitFunction()
 {
+   Prn::print(Prn::View11, "EventThread*****************************************BEGIN");
    // Initialize the string queue.
    mStringQueue.initialize(cQueueSize);
 
@@ -112,6 +113,8 @@ void  EventThread::threadExitFunction()
 
    // Close the log file.
    doFileClose();
+
+   Prn::print(Prn::View11, "EventThread*****************************************END");
 }
 
 //******************************************************************************
@@ -234,40 +237,6 @@ bool EventThread::tryWriteString(TString* aString)
 
    // Successful.
    return true;
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// Log file facility.
-
-// Initialize the log file facility. Read the log parms file and launch 
-// the log file thread.
-void initializeLogFile()
-{
-   gEventThread = new EventThread;
-   gEventThread->launchThread();
-}
-
-// Initialize the log file facility. Read the log parms file and launch 
-// the log file thread.
-void initializeLogFile(char* aParmsFilepath, char* aSection)
-{
-   gEventThread = new EventThread;
-   gEventThread->launchThread();
-}
-
-// Shutdown the log file thread.
-void finalizeLogFile()
-{
-   if (gEventThread == 0) return;
-
-   // Let things settle.
-// ThreadsthreadSleep(500);
-
-   gEventThread->shutdownThread();
-   delete gEventThread;
-   gEventThread = 0;
 }
 
 //******************************************************************************

@@ -163,25 +163,11 @@ public:
 //******************************************************************************
 // Global singular instance.
 
-#ifdef _LOGLOGFILETHREAD_CPP_
+#ifdef _EVENTTHREAD_CPP_
          EventThread* gEventThread = 0;
 #else
 extern   EventThread* gEventThread;
 #endif
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-// Log file facility.
-
-// Initialize the log file facility. Read the log parms file and launch 
-// the log file thread.
-void initializeLogFile();
-void initializeLogFile(char* aParmsFilepath,char* aSection);
-
-// Shutdown the log file thread.
-void finalizeLogFile();
-
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
