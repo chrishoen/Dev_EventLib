@@ -82,6 +82,28 @@ void EventTableRecord::show(int aPF)
    Prn::print(aPF, "Duration                %-5.3f",  mDuration);
 }
 
+//***************************************************************************
+//***************************************************************************
+//***************************************************************************
+// Update with an event record.
+
+void EventTableRecord::update(EventRecord& aEventRecord)
+{
+   mEvtId = aEventRecord.mEvtId;
+   mTOA = aEventRecord.mTOA;
+   mSeqNum = aEventRecord.mSeqNum;
+
+   if (aEventRecord.mSeverity != cEvt_SevUseDefault)
+   {
+      mSeverity = aEventRecord.mSeverity;
+   }
+
+   mCState = aEventRecord.mCState;
+
+   strncpy(mArgString1, aEventRecord.mArgString1, cMaxRecordArgSize);
+   strncpy(mArgString2, aEventRecord.mArgString2, cMaxRecordArgSize);
+}
+
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************

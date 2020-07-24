@@ -10,6 +10,7 @@ Provides a class definition of event table records.
 
 #include <time.h>
 #include "evtEventDefs.h"
+#include "evtEventRecord.h"
 
 namespace Evt
 {
@@ -97,6 +98,14 @@ public:
       const char* aShowStringForSet,
       const char* aShowStringForClear,
       const char* aShowStringForAlarm);
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   // Update with an event record.
+   void update(EventRecord& aEventRecord);
 
    //***************************************************************************
    //***************************************************************************
