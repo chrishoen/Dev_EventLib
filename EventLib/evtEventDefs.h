@@ -69,5 +69,20 @@ static const int cMaxRecordArgSize = 40;
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Duration codes. In event table records, these are used to specify whether
+// or not to use the event duration as an argument to the show string.
+
+// Don't use the duration as an argument for the show string.
+static const int cDurationCode_None = 0;
+
+// Use duration for argument1 for the show string.
+static const int cDurationCode_Arg1 = 1;
+
+// Use duration for argument2 for the show string.
+static const int cDurationCode_Arg2 = 2;
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 }//namespace
 

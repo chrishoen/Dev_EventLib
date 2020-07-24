@@ -45,10 +45,10 @@ public:
    int mType;
 
    // Show string for set.
-   char* mStringForSet;
+   char* mShowStringForSet;
 
    // Show string for clear.
-   char* mStringForClear;
+   char* mShowStringForClear;
 
    //***************************************************************************
    //***************************************************************************

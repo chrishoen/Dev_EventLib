@@ -34,8 +34,8 @@ void EventTableRecord::reset()
 {
    int mEvtId = 0;
    int mType = 0;
-   mStringForSet = 0;
-   mStringForClear = 0;
+   mShowStringForSet = 0;
+   mShowStringForClear = 0;
    timespec mTOA = { 0 };
    mSeqNum = 0;
    mCState = false;
