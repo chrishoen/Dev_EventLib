@@ -45,7 +45,7 @@ public:
    int mType;
 
    // Default severity.
-   int mDefaultSevarity;
+   int mDefaultSeverity;
 
    // Show string for set.
    char* mShowStringForSet;
@@ -67,7 +67,7 @@ public:
    int mSeqNum;
 
    // Variable severity. This is usually equal to the default.
-   int mSevarity;
+   int mSeverity;
 
    // True if a type2 event was set. False if cleared. This is only used
    // by type2 events. This is used to define active alarms.
@@ -97,7 +97,7 @@ public:
    // Methods.
 
    // Show.
-   void show();
+   void show(int aPrintFilter);
 };
 
 //******************************************************************************

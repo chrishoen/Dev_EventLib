@@ -17,7 +17,7 @@ namespace Evt
 //******************************************************************************
 // Return an event record variable as a string.
 
-char* get_Type_asString(int aType)
+char* get_EvtType_asString(int aType)
 {
    switch (aType)
    {
@@ -32,7 +32,7 @@ char* get_Type_asString(int aType)
 //******************************************************************************
 // Return an event record variable as a string.
 
-char* get_Severity_asString(int aSeverity)
+char* get_EvtSeverity_asString(int aSeverity)
 {
    switch (aSeverity)
    {

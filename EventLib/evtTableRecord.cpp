@@ -34,15 +34,35 @@ void EventTableRecord::reset()
 {
    mEvtId = 0;
    mType = 0;
-   mDefaultSevarity = cEvt_SevInfo;
+   mDefaultSeverity = cEvt_SevInfo;
 
    mShowStringForSet = 0;
    mShowStringForClear = 0;
    timespec mTOA = { 0 };
    mSeqNum = 0;
-   mSevarity = cEvt_SevInfo;
+   mSeverity = cEvt_SevInfo;
    mCState = false;
    mDuration = 0.0;
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void EventTableRecord::show(int aPF)
+{
+   Prn::print(aPF, "EventTableRecord********************************");
+   Prn::print(aPF, "EvtId                   %5d", mEvtId);
+   Prn::print(aPF, "Type                    %s", get_EvtType_asString(mType));
+   Prn::print(aPF, "DefaultSeverity         %s", get_EvtSeverity_asString(mDefaultSeverity));
+
+   Prn::print(aPF, "ShowStringForSet        %s", mShowStringForSet);
+   Prn::print(aPF, "ShowStringForClear        %s", mShowStringForClear);
+   timespec mTOA = { 0 };
+   Prn::print(aPF, "SeqNum                  %5d", mSeqNum);
+   Prn::print(aPF, "Severity                %s", get_EvtSeverity_asString(mSeverity));
+   Prn::print(aPF, "CState                  %s", my_string_from_bool(mCState));
+   Prn::print(aPF, "Duration                %5.3f", mDuration);
 }
 
 //******************************************************************************
