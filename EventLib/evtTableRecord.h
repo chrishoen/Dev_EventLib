@@ -36,7 +36,7 @@ public:
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Permenant Members. These are assigned at initialization.
+   // Members, permanent. These are assigned at initialization.
 
    // Event identifier.
    int mEvtId;
@@ -59,7 +59,7 @@ public:
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Transient Members. These are set according to the occurrence of
+   // Members, transient. These are set according to the occurrence of
    // individual events.
 
    // Time of arrival.
@@ -93,6 +93,15 @@ public:
    // Constructor.
    EventTableRecord();
    void reset();
+
+   // Initialize.
+   void initialize(
+      int aEvtId,
+      int aType,
+      int aDefaultSeverity,
+      char* aShowStringForSet,
+      char* aShowStringForClear,
+      char* aShowStringForAlarm);
 
    //***************************************************************************
    //***************************************************************************
