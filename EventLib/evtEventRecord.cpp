@@ -54,7 +54,6 @@ void EventRecord::reset()
 {
    mEvtId = 0;
    timespec_get(&mTOA, TIME_UTC);
-   mSeqNum = 0;
    mSeverity = cEvt_SevUseDefault;
    mCState = false;
 }
@@ -97,7 +96,6 @@ void EventRecord::show(int aPF)
    Prn::print(aPF, "EvtId                   %-5d",    mEvtId);
 
    Prn::print(aPF, "TOA                     %s",      get_timespec_asString(mTOA,tBuffer));
-   Prn::print(aPF, "SeqNum                  %-5d",    mSeqNum);
    Prn::print(aPF, "Severity                %-s",     get_EvtSeverity_asString(mSeverity));
    Prn::print(aPF, "CState                  %-s",     my_string_from_bool(mCState));
 }

@@ -60,10 +60,6 @@ public:
    // Time of arrival.
    timespec mTOA;
 
-   // Sequence number. This is incremented for each individual event that
-   // occurs.
-   int mSeqNum;
-
    // Variable severity. This is usually equal to the default.
    int mSeverity;
 

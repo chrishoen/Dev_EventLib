@@ -37,7 +37,6 @@ void EventTableRecord::reset()
    mShowStringForClear = 0;
    mShowStringForAlarm = 0;
    memset(&mTOA, 0, sizeof(mTOA));
-   mSeqNum = 0;
    mSeverity = cEvt_SevUseDefault;
    mCState = false;
 }
@@ -75,7 +74,6 @@ void EventTableRecord::show(int aPF)
    Prn::print(aPF, "ShowStringForClear      %-s",     mShowStringForClear);
    Prn::print(aPF, "ShowStringForAlarm      %-s",     mShowStringForAlarm);
    Prn::print(aPF, "TOA                     %s",      get_timespec_asString(mTOA,tBuffer));
-   Prn::print(aPF, "SeqNum                  %-5d",    mSeqNum);
    Prn::print(aPF, "Severity                %-s",     get_EvtSeverity_asString(mSeverity));
    Prn::print(aPF, "CState                  %-s",     my_string_from_bool(mCState));
    Prn::print(aPF, "ArgString1              %-s",     mArgString1);
@@ -91,7 +89,6 @@ void EventTableRecord::update(EventRecord* aEventRecord)
 {
    mEvtId = aEventRecord->mEvtId;
    mTOA = aEventRecord->mTOA;
-   mSeqNum = aEventRecord->mSeqNum;
 
    if (aEventRecord->mSeverity != cEvt_SevUseDefault)
    {
