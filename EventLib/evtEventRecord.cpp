@@ -119,7 +119,10 @@ void EventRecord::sendToEventThread()
    }
 
    // Send this instance to the event thread.
-   gEventThread->tryWriteEventRecord(this);
+   if (!gEventThread->tryWriteEventRecord(this))
+   {
+      delete this;
+   }
 }
 
 //******************************************************************************
