@@ -71,10 +71,6 @@ public:
    // by type2 events. This is used to define active alarms.
    bool mCState;
 
-   // Time difference for a type2 event between the toa of a set and
-   // the toa of a clear.
-   double mDuration;
-
    // Two arguments that can be passed to and event. An example: The 
    // temperature went above threshold, arg1 is the temperature and
    // arg2 is the threshold.
