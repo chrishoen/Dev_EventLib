@@ -25,6 +25,7 @@ EventThread::EventThread()
    BaseClass::setThreadName("EventThread");
    BaseClass::setThreadPrintLevel(TS::PrintLevel(0, 3));
    BaseClass::setThreadPriorityNormal();
+   mTerminateFlag = false;
 }
 
 EventThread::~EventThread()
@@ -118,7 +119,10 @@ void EventThread::processEventRecord(EventRecord* aEventRecord)
    Prn::print(Prn::View11, "processEventRecord %d", aEventRecord->mEvtId);
 
    // Update the event table with the event record.
-   Evt::gEventStore.mEventTable.update(aEventRecord);
+   if (Evt::gEventStore.mEventTable.update(aEventRecord))
+   {
+      Prn::print(Prn::View11, "processEventRecord CHANGE");
+   }
 
    // Done.
    delete aEventRecord;
