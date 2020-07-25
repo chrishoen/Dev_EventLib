@@ -70,7 +70,7 @@ void EventRecord::setArg1(const char* aFormat, ...)
    int tPrintSize = 0;
    va_list  ArgPtr;
    va_start(ArgPtr, aFormat);
-   tPrintSize = vsnprintf(mArgString1, cMaxRecordArgSize, aFormat, ArgPtr);
+   tPrintSize = vsnprintf(mArgString1, cMaxRecordArgSize - 1, aFormat, ArgPtr);
    va_end(ArgPtr);
    mArgString1[tPrintSize++] = 0;
 }
@@ -81,7 +81,7 @@ void EventRecord::setArg2(const char* aFormat, ...)
    int tPrintSize = 0;
    va_list  ArgPtr;
    va_start(ArgPtr, aFormat);
-   tPrintSize = vsnprintf(mArgString2, cMaxRecordArgSize, aFormat, ArgPtr);
+   tPrintSize = vsnprintf(mArgString2, cMaxRecordArgSize - 1, aFormat, ArgPtr);
    va_end(ArgPtr);
    mArgString1[tPrintSize++] = 0;
 }
