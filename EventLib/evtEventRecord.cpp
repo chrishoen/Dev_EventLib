@@ -53,7 +53,7 @@ EventRecord::EventRecord(int aEvtId, bool aCState, int aSeverity)
 void EventRecord::reset()
 {
    mEvtId = 0;
-   memset(&mTOA, 0, sizeof(mTOA));
+   timespec_get(&mTOA, TIME_UTC);
    mSeqNum = 0;
    mSeverity = cEvt_SevUseDefault;
    mCState = false;
