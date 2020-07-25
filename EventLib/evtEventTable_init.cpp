@@ -46,7 +46,7 @@ void EventTable::initialize()
       Evt::cEvtId_Test1,
       Evt::cEvt_Type2,
       Evt::cEvt_SevCritical,
-      "Set Event for Test1",
+      "Set Event for Test1 %s %s",
       "Clear Event for Test1",
       "Alarm for Test1");
 
