@@ -141,6 +141,7 @@ bool EventThread::tryWriteEventRecord(EventRecord* aEventRecord)
    if (!mEventRecordQueue.tryWrite(aEventRecord))
    {
       // The write was not successful.
+      delete aEventRecord;
       return false;
    }
 
