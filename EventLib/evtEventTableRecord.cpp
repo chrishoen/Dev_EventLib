@@ -87,21 +87,21 @@ void EventTableRecord::show(int aPF)
 //***************************************************************************
 // Update with an event record.
 
-void EventTableRecord::update(EventRecord& aEventRecord)
+void EventTableRecord::update(EventRecord* aEventRecord)
 {
-   mEvtId = aEventRecord.mEvtId;
-   mTOA = aEventRecord.mTOA;
-   mSeqNum = aEventRecord.mSeqNum;
+   mEvtId = aEventRecord->mEvtId;
+   mTOA = aEventRecord->mTOA;
+   mSeqNum = aEventRecord->mSeqNum;
 
-   if (aEventRecord.mSeverity != cEvt_SevUseDefault)
+   if (aEventRecord->mSeverity != cEvt_SevUseDefault)
    {
-      mSeverity = aEventRecord.mSeverity;
+      mSeverity = aEventRecord->mSeverity;
    }
 
-   mCState = aEventRecord.mCState;
+   mCState = aEventRecord->mCState;
 
-   strncpy(mArgString1, aEventRecord.mArgString1, cMaxRecordArgSize);
-   strncpy(mArgString2, aEventRecord.mArgString2, cMaxRecordArgSize);
+   strncpy(mArgString1, aEventRecord->mArgString1, cMaxRecordArgSize);
+   strncpy(mArgString2, aEventRecord->mArgString2, cMaxRecordArgSize);
 }
 
 //******************************************************************************

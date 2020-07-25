@@ -105,7 +105,7 @@ public:
    // Methods.
 
    // Update with an event record.
-   void update(EventRecord& aEventRecord);
+   void update(EventRecord* aEventRecord);
 
    //***************************************************************************
    //***************************************************************************

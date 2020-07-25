@@ -43,9 +43,9 @@ void EventTable::reset()
 //******************************************************************************
 // Update with an event record.
 
-void EventTable::update(EventRecord& aEventRecord)
+void EventTable::update(EventRecord* aEventRecord)
 {
-   mArray[aEventRecord.mEvtId].update(aEventRecord);
+   mArray[aEventRecord->mEvtId].update(aEventRecord);
 }
 
 //******************************************************************************

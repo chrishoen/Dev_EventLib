@@ -67,7 +67,7 @@ void EventThread::executeProcessEventRecord(EventRecord* aEventRecord)
    Prn::print(Prn::View11, "ProcessEventRecord %d", aEventRecord->mEvtId);
 
    // Update the event table with the event record.
-   Evt::gEventStore.mEventTable.update(*aEventRecord);
+   Evt::gEventStore.mEventTable.update(aEventRecord);
 
    // Done.
    delete aEventRecord;

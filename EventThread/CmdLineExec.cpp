@@ -78,7 +78,7 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
    tEventRecord.mEvtId = Evt::cEvtId_Test1;
    tEventRecord.mCState = true;
 
-   Evt::gEventStore.mEventTable.update(tEventRecord);
+   Evt::gEventStore.mEventTable.update(&tEventRecord);
 }
 
 //******************************************************************************
