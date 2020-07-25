@@ -58,6 +58,9 @@ public:
 
    // Constructor.
    EventRecord();
+   EventRecord(int aEvtId);
+   EventRecord(int aEvtId, bool aCState);
+   EventRecord(int aEvtId, bool aCState, int aSeverity);
    void reset();
 
    //***************************************************************************

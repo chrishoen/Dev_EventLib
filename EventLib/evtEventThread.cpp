@@ -9,6 +9,7 @@ Description:
 
 #include "stdafx.h"
 
+#include "evtEventStore.h"
 
 #define  _EVENTTHREAD_CPP_
 #include "evtEventThread.h"
@@ -57,10 +58,19 @@ void EventThread::threadExitFunction()
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Event record request qcall. Update the event table and the alarm list.
+// Update the event log file and the alarm list file. Delete the event
+// record when finiished.
 
 void EventThread::executeProcessEventRecord(EventRecord* aEventRecord)
 {
    Prn::print(Prn::View11, "ProcessEventRecord %d", aEventRecord->mEvtId);
+
+   // Update the event table with the event record.
+   Evt::gEventStore.mEventTable.update(*aEventRecord);
+
+   // Done.
+   delete aEventRecord;
 }
 
 //******************************************************************************

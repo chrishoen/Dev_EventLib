@@ -24,6 +24,25 @@ EventRecord::EventRecord()
    reset();
 }
 
+EventRecord::EventRecord(int aEvtId)
+{
+   reset();
+   mEvtId = aEvtId;
+}
+EventRecord::EventRecord(int aEvtId, bool aCState)
+{
+   reset();
+   mEvtId = aEvtId;
+   mCState = aCState;
+}
+EventRecord::EventRecord(int aEvtId, bool aCState, int aSeverity)
+{
+   reset();
+   mEvtId = aEvtId;
+   mCState = aCState;
+   mSeverity = aSeverity;
+}
+
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
