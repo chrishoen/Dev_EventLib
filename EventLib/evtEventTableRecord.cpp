@@ -104,4 +104,27 @@ void EventTableRecord::update(EventRecord* aEventRecord)
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+// Write a show string into a buffer string. Return a pointer to the buffer.
+
+char* EventTableRecord::getShowString(char* aBuffer)
+{
+   // Point to the correct source string, based on the variables.
+   const char* tSource = 0;
+   // For type1, always use the first string.
+   if (mType == cEvt_Type1) tSource = &mShowStringForSet[0];
+   // For type2, based on the cstate, use either the first of second string.
+   if (mType == cEvt_Type2)
+   {
+      if (mCState) tSource = &mShowStringForSet[0];
+      else tSource = &mShowStringForClear[0];
+   }
+
+   // Do a string print into the buffer string, pass in the two armgument strings.
+   snprintf(aBuffer, cMaxShowStringSize - 1, tSource, &mArgString1[0], &mArgString2[0]);
+   return aBuffer;
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
 }//namespace

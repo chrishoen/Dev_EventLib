@@ -121,7 +121,9 @@ void EventThread::processEventRecord(EventRecord* aEventRecord)
    // Update the event table with the event record.
    if (Evt::gEventStore.mEventTable.update(aEventRecord))
    {
-      Prn::print(Prn::View11, "processEventRecord CHANGE");
+      char tBuffer[200];
+      Prn::print(Prn::View11, "%s",
+         Evt::gEventStore.mEventTable.mArray[aEventRecord->mEvtId].getShowString(tBuffer));
    }
 
    // Done.

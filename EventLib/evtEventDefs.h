@@ -75,6 +75,9 @@ static const int cEvt_MaxNumEvents = 4;
 // Max table record or record argument size.
 static const int cMaxRecordArgSize = 40;
 
+// Max table record or record argument size.
+static const int cMaxShowStringSize = 200;
+
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
