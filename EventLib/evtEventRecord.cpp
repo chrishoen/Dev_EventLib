@@ -119,7 +119,7 @@ void EventRecord::sendToEventThread()
    }
 
    // Send this instance to the event thread.
-   gEventThread->mProcessEventRecordQCall(this);
+   gEventThread->tryWriteEventRecord(this);
 }
 
 //******************************************************************************

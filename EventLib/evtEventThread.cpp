@@ -1,12 +1,9 @@
 /*==============================================================================
-File: someTest1Thread.cpp
-Description:
 ==============================================================================*/
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-
 #include "stdafx.h"
 
 #include "evtEventStore.h"
@@ -27,33 +24,87 @@ EventThread::EventThread()
    // Set base class thread variables.
    BaseClass::setThreadName("EventThread");
    BaseClass::setThreadPrintLevel(TS::PrintLevel(0, 3));
-   BaseClass::setThreadPriorityHigh();
+   BaseClass::setThreadPriorityNormal();
+}
 
-   // Set qcalls.
-   mProcessEventRecordQCall.bind(this, &EventThread::executeProcessEventRecord);
+EventThread::~EventThread()
+{
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 // Thread init function. This is called by the base class immediately 
-// after the thread starts running.
+// after the thread starts running. This opens the file.
 
 void EventThread::threadInitFunction()
 {
    Prn::print(Prn::View11, "EventThread::threadInitFunction**********************");
+
+   // Initialize the string queue.
+   mEventRecordQueue.initialize(cQueueSize);
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Thread exit function. This is called by the base class immediately
-// before the thread is terminated.
+// Thread exit function, base class overload. This closes the file.
 
-void EventThread::threadExitFunction()
+void  EventThread::threadExitFunction()
 {
    Prn::print(Prn::View11, "EventThread::threadExitFunction**********************");
+
+   // Finalize the string queue.
+   mEventRecordQueue.finalize();
 }
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Thread run function. This is called by the base class immediately 
+// after the thread init function. It runs a loop that waits on the
+// semaphore. When it wakes up, it reads a string from the string
+// queue and prints it.
+
+void EventThread::threadRunFunction()
+{
+   // Loop to wait for posted events and process them.
+   int tCount = 0;
+   while (true)
+   {
+      // Wait on the counting semaphore.
+      mSemaphore.get();
+
+      // Test for thread termination.
+      if (mTerminateFlag) break;
+
+      // Try to read a string from the queue.
+      if (EventRecord* tEventRecord = (EventRecord*)mEventRecordQueue.tryRead())
+      {
+         // Print the string to the log file and then delete it.
+         processEventRecord(tEventRecord);
+      }
+   }
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Thread shutdown function. Set the termination flag, post to the 
+// semaphore and wait for the thread to terminate.
+
+void EventThread::shutdownThread()
+{
+   shutdownThreadPrologue();
+
+   // Set the termination flag.
+   mTerminateFlag = true;
+   // Post to the semaphore.
+   mSemaphore.put();
+   // Wait for the thread run function to return.
+   BaseClass::waitForThreadTerminate();
+}
+
 
 //******************************************************************************
 //******************************************************************************
@@ -62,15 +113,43 @@ void EventThread::threadExitFunction()
 // Update the event log file and the alarm list file. Delete the event
 // record when finiished.
 
-void EventThread::executeProcessEventRecord(EventRecord* aEventRecord)
+void EventThread::processEventRecord(EventRecord* aEventRecord)
 {
-   Prn::print(Prn::View11, "ProcessEventRecord %d", aEventRecord->mEvtId);
+   Prn::print(Prn::View11, "processEventRecord %d", aEventRecord->mEvtId);
 
    // Update the event table with the event record.
    Evt::gEventStore.mEventTable.update(aEventRecord);
 
    // Done.
    delete aEventRecord;
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Try to write an event record to the to the queue. Return true if
+// successful. This is called by invocations to enqueue an event record.
+// It writes to the pointer queue and posts to the semaphore, which
+// then wakes up the thread run function to process the queue.
+
+bool EventThread::tryWriteEventRecord(EventRecord* aEventRecord)
+{
+   // Guard.
+   if (mTerminateFlag) return false;
+
+   // Try to write to the call queue.
+   if (!mEventRecordQueue.tryWrite(aEventRecord))
+   {
+      // The write was not successful.
+      delete aEventRecord;
+      return false;
+   }
+
+   // Post to the semaphore.
+   mSemaphore.put();
+
+   // Successful.
+   return true;
 }
 
 //******************************************************************************
