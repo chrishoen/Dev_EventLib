@@ -68,6 +68,15 @@ public:
    //***************************************************************************
    // Methods.
 
+   // Set the argumant strings via a variable arg list using vnsprintf.
+   void setArg1(const char* aFormat, ...);
+   void setArg2(const char* aFormat, ...);
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
    // Send this instance to the event thread. The event thread will
    // eventually delete this instance. Do not use this instance after
    // sending it. If this is not successful then it deletes itself.

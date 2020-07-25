@@ -88,6 +88,10 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 {
    Evt::EventRecord* tEventRecord = new Evt::EventRecord(Evt::cEvtId_Test1,aCmd->argBool(1));
+
+   tEventRecord->setArg1("%d", 101);
+   tEventRecord->setArg2("%4.2f", 10.10);
+
    tEventRecord->sendToEventThread();
 }
 

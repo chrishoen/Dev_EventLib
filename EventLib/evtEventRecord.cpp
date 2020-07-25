@@ -8,6 +8,9 @@ Description:
 
 #include "stdafx.h"
 
+#include <stdarg.h>
+#include <ctype.h>
+
 #include "evtEventThread.h"
 #include "evtEventRecord.h"
 
@@ -54,6 +57,33 @@ void EventRecord::reset()
    mSeqNum = 0;
    mSeverity = cEvt_SevUseDefault;
    mCState = false;
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Set the argumant strings via a variable arg list using vnsprintf.
+
+void EventRecord::setArg1(const char* aFormat, ...)
+{
+   // Do a vsprintf with variable arg list into the argument string.
+   int tPrintSize = 0;
+   va_list  ArgPtr;
+   va_start(ArgPtr, aFormat);
+   tPrintSize = vsnprintf(mArgString1, cMaxRecordArgSize, aFormat, ArgPtr);
+   va_end(ArgPtr);
+   mArgString1[tPrintSize++] = 0;
+}
+
+void EventRecord::setArg2(const char* aFormat, ...)
+{
+   // Do a vsprintf with variable arg list into the argument string.
+   int tPrintSize = 0;
+   va_list  ArgPtr;
+   va_start(ArgPtr, aFormat);
+   tPrintSize = vsnprintf(mArgString2, cMaxRecordArgSize, aFormat, ArgPtr);
+   va_end(ArgPtr);
+   mArgString1[tPrintSize++] = 0;
 }
 
 //******************************************************************************
