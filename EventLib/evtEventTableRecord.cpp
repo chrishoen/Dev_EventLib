@@ -80,6 +80,8 @@ void EventTableRecord::show(int aPF)
    Prn::print(aPF, "Severity                %-s",     get_EvtSeverity_asString(mSeverity));
    Prn::print(aPF, "CState                  %-s",     my_string_from_bool(mCState));
    Prn::print(aPF, "Duration                %-5.3f",  mDuration);
+   Prn::print(aPF, "ArgString1              %-s", mArgString1);
+   Prn::print(aPF, "ArgString2              %-s", mArgString2);
 }
 
 //***************************************************************************
