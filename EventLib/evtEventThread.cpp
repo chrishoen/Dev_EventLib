@@ -40,6 +40,7 @@ EventThread::EventThread()
 
 void EventThread::threadInitFunction()
 {
+   Prn::print(Prn::View11, "EventThread::threadInitFunction**********************");
 }
 
 //******************************************************************************
@@ -50,6 +51,7 @@ void EventThread::threadInitFunction()
 
 void EventThread::threadExitFunction()
 {
+   Prn::print(Prn::View11, "EventThread::threadExitFunction**********************");
 }
 
 //******************************************************************************
@@ -58,6 +60,7 @@ void EventThread::threadExitFunction()
 
 void EventThread::executeProcessEventRecord(EventRecord* aEventRecord)
 {
+   Prn::print(Prn::View11, "ProcessEventRecord %d", aEventRecord->mEvtId);
 }
 
 //******************************************************************************

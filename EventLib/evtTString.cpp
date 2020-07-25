@@ -149,7 +149,7 @@ void TString::sendToLogFile(int aLogCode)
    this->mLogCode = aLogCode;
 
    // Try to write to the log file thread queue.
-   if (tPass) tPass = gEventThread->tryWriteString(this);
+// if (tPass) tPass = gEventThread->tryWriteString(this);
 
    // If not successful then delete this instance.
    if (!tPass) delete this;
@@ -173,7 +173,7 @@ void TString::copyToLogFile(int aLogCode)
    tString->mLogCode = aLogCode;
 
    // Try to write to the log file thread queue.
-   if (!gEventThread->tryWriteString(tString))
+//   if (!gEventThread->tryWriteString(tString))
    {
       // not successful.
       delete tString;

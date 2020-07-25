@@ -8,6 +8,7 @@ Description:
 
 #include "stdafx.h"
 
+#include "evtEventThread.h"
 #include "evtEventRecord.h"
 
 namespace Evt
@@ -50,6 +51,26 @@ void EventRecord::show(int aPF)
    Prn::print(aPF, "SeqNum                  %-5d",    mSeqNum);
    Prn::print(aPF, "Severity                %-s",     get_EvtSeverity_asString(mSeverity));
    Prn::print(aPF, "CState                  %-s",     my_string_from_bool(mCState));
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Send this instance to the event thread. The event thread will
+// eventually delete this instance. Do not use this instance after
+// sending it. If this is not successful then it deletes itself.
+
+void EventRecord::sendToEventThread()
+{
+   // Guard.
+   if (gEventThread == 0)
+   {
+      delete this;
+      return;
+   }
+
+   // Send this instance to the event thread.
+   gEventThread->mProcessEventRecordQCall(this);
 }
 
 //******************************************************************************

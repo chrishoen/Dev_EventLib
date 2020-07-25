@@ -65,6 +65,16 @@ public:
    //***************************************************************************
    // Methods.
 
+   // Send this instance to the event thread. The event thread will
+   // eventually delete this instance. Do not use this instance after
+   // sending it. If this is not successful then it deletes itself.
+   void sendToEventThread();
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
    // Show.
    void show(int aPrintFilter = 0);
 };
