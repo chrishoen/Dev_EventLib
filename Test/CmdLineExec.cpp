@@ -5,6 +5,9 @@
 #include <time.h>
 #include <stdarg.h>
 
+#include <iostream> 
+#include <set> 
+#include <iterator> 
 
 #include "CmdLineExec.h"
 
@@ -85,41 +88,6 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 {
-   time_t currtime;
-
-   struct tm* timeinfo;
-
-   time(&currtime);
-
-   timeinfo = gmtime(&currtime);
-
-   time_t utc = mktime(timeinfo);
-
-   timeinfo = localtime(&currtime);
-
-   time_t local = mktime(timeinfo);
-
-
-
-   // Get offset in hours from UTC
-
-   double offsetFromUTC = difftime(utc, local) / 3600;
-
-
-
-   // Adjust for DST
-
-   if (timeinfo->tm_isdst)
-
-   {
-
-      offsetFromUTC -= 1;
-
-   }
-
-   Prn::print(0, "%6.2f", offsetFromUTC);
-
-
 }
 
 //******************************************************************************
@@ -128,6 +96,18 @@ void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
 {
+   std::set<int, std::less<int>> tSet;
+   tSet.insert(1);
+   tSet.insert(2);
+   tSet.insert(3);
+   tSet.insert(4);
+
+   std::set<int, std::less<int>>::iterator tItr;
+
+   for (tItr = tSet.begin(); tItr != tSet.end(); ++tItr)
+   {
+      Prn::print(0,"%d", *tItr);
+   }
 }
 
 //******************************************************************************
