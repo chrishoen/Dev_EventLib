@@ -10,6 +10,7 @@ Provides global storage for the event table and the alarm table.
 
 #include "evtEventDefs.h"
 #include "evtEventTable.h"
+#include "evtAlarmList.h"
 
 namespace Evt
 {
@@ -32,6 +33,10 @@ public:
    // Array of event table records.
    EventTable mEventTable;
 
+   // List of event table record event ids that are type2 and have
+   // cstate true. This is the active alarm list.
+   AlarmList mAlarmList;
+
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
@@ -43,7 +48,6 @@ public:
 
    // Initialize all records.
    void initialize();
-
 };
 
 //******************************************************************************
