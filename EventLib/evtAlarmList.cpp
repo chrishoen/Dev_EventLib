@@ -53,6 +53,7 @@ bool AlarmList::update(EventTableRecord* aEventTableRecord)
       mEvtIdSet.insert(aEventTableRecord->mEvtId);
    }
    // If the cstate is false then remove the event id from the set.
+   else
    {
       mEvtIdSet.erase(aEventTableRecord->mEvtId);
    }

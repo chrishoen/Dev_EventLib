@@ -121,9 +121,16 @@ void EventThread::processEventRecord(EventRecord* aEventRecord)
    // Update the event table with the event record.
    if (Evt::gEventStore.mEventTable.update(aEventRecord))
    {
+      // If the table was changed:
       char tBuffer[200];
+
+      // Print.
       Prn::print(Prn::View11, "%s",
          Evt::gEventStore.mEventTable.mArray[aEventRecord->mEvtId].getShowString(tBuffer));
+
+      // Update the alarm list.
+      Evt::gEventStore.mAlarmList.update(
+         &Evt::gEventStore.mEventTable.mArray[aEventRecord->mEvtId]);
    }
 
    // Done.

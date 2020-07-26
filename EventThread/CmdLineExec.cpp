@@ -151,6 +151,7 @@ void CmdLineExec::executeShow(Ris::CmdLineCmd* aCmd)
    aCmd->setArgDefault(1, 0);
    int tEvtId = aCmd->argInt(1);
    Evt::gEventStore.mEventTable.showRecord(tEvtId, 0);
+   Evt::gEventStore.mAlarmList.show(0);
 }
 
 //******************************************************************************
