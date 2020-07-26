@@ -8,6 +8,9 @@ Provides a class definition for the active alarm list
 //******************************************************************************
 //******************************************************************************
 
+#include <set> 
+#include <iterator> 
+
 #include "evtEventDefs.h"
 #include "evtEventTableRecord.h"
 
@@ -23,11 +26,17 @@ namespace Evt
 class AlarmList
 {
 public:
+   typedef std::set<int, std::less<int>> IntSet;
+   typedef std::set<int, std::less<int>>::iterator IntSetItr;
 
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
    // Members.
+
+   // This is a set of integers that contain event ids of type2 events in
+   // the event table that have cstate true.
+   IntSet mEvtIdSet;
 
    //***************************************************************************
    //***************************************************************************
@@ -56,7 +65,7 @@ public:
    // Methods.
 
    // Show.
-   void show();
+   void show(int aPrintFilter);
 };
 
 //******************************************************************************

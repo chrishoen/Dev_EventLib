@@ -44,6 +44,19 @@ void AlarmList::reset()
 
 bool AlarmList::update(EventTableRecord* aEventTableRecord)
 {
+   // Guard.
+   if (aEventTableRecord->mType == cEvt_Type1) return false;
+   
+   // If the cstate is true then add the event id to the set.
+   if (aEventTableRecord->mCState)
+   { 
+      mEvtIdSet.insert(aEventTableRecord->mEvtId);
+   }
+   // If the cstate is false then remove the event id from the set.
+   {
+      mEvtIdSet.erase(aEventTableRecord->mEvtId);
+   }
+
    return true;
 }
 
@@ -51,8 +64,14 @@ bool AlarmList::update(EventTableRecord* aEventTableRecord)
 //******************************************************************************
 //******************************************************************************
 
-void AlarmList::show()
+void AlarmList::show(int aPF)
 {
+   Prn::print(aPF, "AlarmList***************************************");
+   for (IntSetItr tItr = mEvtIdSet.begin(); tItr != mEvtIdSet.end(); ++tItr)
+   {
+      Prn::print(aPF, "%d", *tItr);
+   }
+
 }
 
 //******************************************************************************
