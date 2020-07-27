@@ -126,7 +126,11 @@ void EventThread::processEventRecord(EventRecord* aEventRecord)
 
       // Print.
       Prn::print(Prn::View11, "%s",
-         Evt::gEventStore.mEventTable.mArray[aEventRecord->mEvtId].getLogFileShowString(tBuffer));
+         gEventStore.mEventTable.mArray[aEventRecord->mEvtId].getLogFileShowString(tBuffer));
+
+      // Write to the event log file.
+      gEventStore.mFileWriter.doWriteToLogFile(
+         &gEventStore.mEventTable.mArray[aEventRecord->mEvtId]);
 
       // Update the alarm list.
       Evt::gEventStore.mAlarmList.update(

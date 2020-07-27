@@ -38,6 +38,10 @@ public:
    // cstate true. This is the active alarm list.
    AlarmList mAlarmList;
 
+   // List of event table record event ids that are type2 and have
+   // cstate true. This is the active alarm list.
+   FileWriter mFileWriter;
+
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
