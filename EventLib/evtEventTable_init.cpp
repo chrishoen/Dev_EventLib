@@ -48,7 +48,7 @@ void EventTable::initialize()
       Evt::cEvt_SevCritical,
       "Set Event for Test1 %s %s",
       "Clear Event for Test1",
-      "Alarm for Test1");
+      "ALARM FOR TEST1");
 
    initializeRecord(
       Evt::cEvtId_Test2,
@@ -56,7 +56,7 @@ void EventTable::initialize()
       Evt::cEvt_SevCritical,
       "Set Event for Test2",
       "Clear Event for Test2",
-      "Alarm for Test2");
+      "ALARM FOR TEST2");
 
    initializeRecord(
       Evt::cEvtId_Test3,
@@ -64,7 +64,7 @@ void EventTable::initialize()
       Evt::cEvt_SevCritical,
       "Set Event for Test3",
       "Clear Event for Test3",
-      "Alarm for Test3");
+      "ALARM FOR TEST3");
 
    initializeRecord(
       Evt::cEvtId_Test4,
@@ -72,7 +72,7 @@ void EventTable::initialize()
       Evt::cEvt_SevCritical,
       "Set Event for Test4",
       "Clear Event for Test4",
-      "Alarm for Test4");
+      "ALARM FOR TEST4");
 }
 
 //******************************************************************************

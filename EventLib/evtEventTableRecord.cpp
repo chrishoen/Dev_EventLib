@@ -125,7 +125,7 @@ const char* EventTableRecord::getCStateAsString()
 //******************************************************************************
 // Write a show string into a buffer string. Return a pointer to the buffer.
 
-char* EventTableRecord::getShowString(char* aBuffer)
+char* EventTableRecord::getLogFileShowString(char* aBuffer)
 {
    // Point to the correct source string, based on the variables.
    const char* tSource = 0;
@@ -140,6 +140,18 @@ char* EventTableRecord::getShowString(char* aBuffer)
 
    // Do a string print into the buffer string, pass in the two armgument strings.
    snprintf(aBuffer, cMaxShowStringSize - 1, tSource, &mArgString1[0], &mArgString2[0]);
+   return aBuffer;
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Write a show string into a buffer string. Return a pointer to the buffer.
+
+char* EventTableRecord::getAlarmFileShowString(char* aBuffer)
+{
+   // Do a string copy into the buffer string.
+   strncpy(aBuffer, &mShowStringForAlarm[0], cMaxShowStringSize - 1);
    return aBuffer;
 }
 
@@ -161,7 +173,7 @@ std::string EventTableRecord::getLogFileJsonString()
    tJsonValue["EvtId"] = mEvtId;
    tJsonValue["Severity"] = mSeverity;
    tJsonValue["CState"] = getCStateAsString();
-   tJsonValue["Show"] = getShowString(tBuffer);
+   tJsonValue["Show"] = getLogFileShowString(tBuffer);
 
    // Copy the json value to a string.
    std::string tString;
@@ -191,7 +203,7 @@ std::string EventTableRecord::getAlarmFileJsonString()
    tJsonValue["EvtId"] = mEvtId;
    tJsonValue["Severity"] = mSeverity;
    tJsonValue["CState"] = getCStateAsString();
-   tJsonValue["Show"] = getShowString(tBuffer);
+   tJsonValue["Show"] = getAlarmFileShowString(tBuffer);
 
    // Copy the json value to a string.
    std::string tString;

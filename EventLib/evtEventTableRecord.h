@@ -118,7 +118,8 @@ public:
    const char* getCStateAsString();
 
    // Write a show string into a buffer string. return a pointer to the buffer.
-   char* getShowString(char* aBuffer);
+   char* getLogFileShowString(char* aBuffer);
+   char* getAlarmFileShowString(char* aBuffer);
 
    //***************************************************************************
    //***************************************************************************
