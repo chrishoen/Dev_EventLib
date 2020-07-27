@@ -31,7 +31,8 @@ FileWriter::FileWriter()
 //******************************************************************************
 // Write an event table record as a json string to the event log file.
 
-void FileWriter::doWriteToLogFile(EventTableRecord& aEventTableRecord)
+void FileWriter::doWriteToLogFile(
+   EventTableRecord& aEventTableRecord)     // Input
 {
    // Get json string formatted for a log file.
    std::string tString = aEventTableRecord.getLogFileJsonString();
@@ -45,13 +46,24 @@ void FileWriter::doWriteToLogFile(EventTableRecord& aEventTableRecord)
 //******************************************************************************
 // Write an event table record as a json string to the alarm list file.
 
-void FileWriter::doWriteToAlarmFile(EventTableRecord& aEventTableRecord)
+void FileWriter::doWriteToAlarmFile(
+   EventTable& aEventTable,       // Input
+   AlarmList&  aAlarmList)        // Input   
 {
-   // Get json string formatted for an alarm file.
-   std::string tString = aEventTableRecord.getLogFileJsonString();
+   // Open the output file for write.
+   std::ofstream tOutputFile(mAlarmFilePath, std::ofstream::out);
 
-   // Write append the string to the alarm file.
-   doAppendStringToFile(tString, mAlarmFilePath);
+   // Loop for all of the event ids in the alarm list event id set.
+   for (AlarmList::IntSetItr tItr = aAlarmList.mEvtIdSet.begin(); tItr != aAlarmList.mEvtIdSet.end(); ++tItr)
+   {
+      // Get json string formatted for an alarm file.
+      std::string tString = aEventTable.mArray[*tItr].getLogFileJsonString();
+      // Write the string to the alarm file.
+      tOutputFile << tString;
+   }
+
+   // Done
+   tOutputFile.close();
 }
 
 //******************************************************************************

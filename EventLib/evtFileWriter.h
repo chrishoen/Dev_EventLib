@@ -10,6 +10,8 @@ File writer for event log files and alarm list file.
 
 #include "evtEventDefs.h"
 #include "evtEventTableRecord.h"
+#include "evtEventTable.h"
+#include "evtAlarmList.h"
 
 namespace Evt
 {
@@ -50,10 +52,13 @@ public:
    // Methods.
 
    // Write an event table record as a json string to the event log file.
-   void doWriteToLogFile(EventTableRecord& aEventTableRecord);
+   void doWriteToLogFile(
+      EventTableRecord& aEventTableRecord);     // Input
 
    // Write an event table record as a json string to the alarm list file.
-   void doWriteToAlarmFile(EventTableRecord& aEventTableRecord);
+   void doWriteToAlarmFile(
+      EventTable& aEventTable,       // Input
+      AlarmList& aAlarmList);        // Input   
 
    // Write append a string to a file.
    void doAppendStringToFile(
