@@ -10,7 +10,7 @@
 #include "evtEventRecord.h"
 #include "evtEventStore.h"
 #include "evtEventThread.h"
-#include "evtInterface.h"
+#include "evtService.h"
 
 #include "risCmdLineConsole.h"
 #include "CmdLineExec.h"
