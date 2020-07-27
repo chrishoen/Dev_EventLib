@@ -38,12 +38,12 @@ EventRecord::EventRecord(int aEvtId, bool aCState)
    mEvtId = aEvtId;
    mCState = aCState;
 }
-EventRecord::EventRecord(int aEvtId, bool aCState, int aSeverity)
+EventRecord::EventRecord(int aEvtId, int aSeverity, bool aCState)
 {
    reset();
    mEvtId = aEvtId;
-   mCState = aCState;
    mSeverity = aSeverity;
+   mCState = aCState;
 }
 
 //******************************************************************************
