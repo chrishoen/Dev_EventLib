@@ -11,6 +11,7 @@ Provides global storage for the event table and the alarm table.
 #include "evtEventDefs.h"
 #include "evtEventTable.h"
 #include "evtAlarmList.h"
+#include "evtFileWriter.h"
 
 namespace Evt
 {

@@ -125,11 +125,11 @@ public:
    //***************************************************************************
    // Methods.
 
-   // Return a json value for all of the variables.
-   Json::Value getLogFileJsonValue();
-
-   // Return a string with json for all of the variables.
+   // Return a string for all of the variables.
    std::string getLogFileJsonString();
+
+   // Return a string for all of the variables.
+   std::string getAlarmFileJsonString();
 };
 
 

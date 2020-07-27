@@ -146,39 +146,60 @@ char* EventTableRecord::getShowString(char* aBuffer)
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Return a json value for all of the variables.
+// Return a string for all of the variables.
 
-Json::Value EventTableRecord::getLogFileJsonValue()
+std::string EventTableRecord::getLogFileJsonString()
 {
    // Temp buffer.
    char tBuffer[200];
 
-   // Json variables.
+   // Json variable.
    Json::Value tJsonValue;
 
-   // Copy members.
+   // Copy members to the json variable.
    tJsonValue["TOA"] = get_timespec_asString(mTOA, tBuffer);
    tJsonValue["EvtId"] = mEvtId;
    tJsonValue["Severity"] = mSeverity;
    tJsonValue["CState"] = getCStateAsString();
    tJsonValue["Show"] = getShowString(tBuffer);
 
-   return tJsonValue;
+   // Copy the json value to a string.
+   std::string tString;
+   Json::FastWriter tWriter;
+   tString = tWriter.write(tJsonValue);
+   return tString;
+
+   // Return the string.
+   return tString;
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-// Return a string with json for all of the variables.
+// Return a string for all of the variables.
 
-std::string EventTableRecord::getLogFileJsonString()
+std::string EventTableRecord::getAlarmFileJsonString()
 {
-   // Json variable.
-   Json::Value tJsonValue = getLogFileJsonValue();
+   // Temp buffer.
+   char tBuffer[200];
 
+   // Json variable.
+   Json::Value tJsonValue;
+
+   // Copy members to the json variable.
+   tJsonValue["TOA"] = get_timespec_asString(mTOA, tBuffer);
+   tJsonValue["EvtId"] = mEvtId;
+   tJsonValue["Severity"] = mSeverity;
+   tJsonValue["CState"] = getCStateAsString();
+   tJsonValue["Show"] = getShowString(tBuffer);
+
+   // Copy the json value to a string.
    std::string tString;
    Json::FastWriter tWriter;
    tString = tWriter.write(tJsonValue);
+   return tString;
+
+   // Return the string.
    return tString;
 }
 
