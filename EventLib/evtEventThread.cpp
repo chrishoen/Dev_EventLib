@@ -134,12 +134,14 @@ void EventThread::processEventRecord(EventRecord* aEventRecord)
          gEventStore.mEventTable.mArray[tEvtId]);
 
       // Update the alarm list.
-      Evt::gEventStore.mAlarmList.update(
-         &Evt::gEventStore.mEventTable.mArray[tEvtId]);
-
-      gEventStore.mFileWriter.doWriteToAlarmFile(
-         gEventStore.mEventTable,
-         gEventStore.mAlarmList);
+      if (Evt::gEventStore.mAlarmList.update(
+         &Evt::gEventStore.mEventTable.mArray[tEvtId]))
+      {
+         // Write to the alarm list file.
+         gEventStore.mFileWriter.doWriteToAlarmFile(
+            gEventStore.mEventTable,
+            gEventStore.mAlarmList);
+      }
    }
 
    // Done.

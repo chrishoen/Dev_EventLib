@@ -202,7 +202,7 @@ std::string EventTableRecord::getAlarmFileJsonString()
    // Copy members to the json variable.
    tJsonValue["TOA"] = get_timespec_asString(mTOA, tBuffer);
    tJsonValue["EvtId"] = mEvtId;
-   tJsonValue["Severity"] = mSeverity;
+   tJsonValue["Severity"] = get_EvtSeverity_asString(mSeverity);
    tJsonValue["CState"] = getCStateAsString();
    tJsonValue["Show"] = getAlarmFileShowString(tBuffer);
 
