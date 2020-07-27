@@ -36,6 +36,7 @@ void EventTableRecord::reset()
    mSeverity = cEvt_SevUseDefault;
    mCState = false;
    mPendingCount = 0;
+   mIgnoreFlag = false;
 }
 
 // Initialize.
@@ -54,7 +55,15 @@ void EventTableRecord::initialize(
    mShowStringForClear = aShowStringForClear;
    mShowStringForAlarm = aShowStringForAlarm;
    mSeverity = aDefaultSeverity;
+   mIgnoreFlag = true;
 }
+
+// Return true if these variables will change the record.
+bool EventTableRecord::willChange(int aSeverity, bool aCState)
+{
+   return mSeverity != aSeverity || mCState != aCState;
+}
+
 
 //******************************************************************************
 //******************************************************************************

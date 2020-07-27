@@ -54,6 +54,10 @@ public:
    // Show string for the active alarm list.
    const char* mShowStringForAlarm;
 
+   // If true then the event associated with this record can be ignored
+   // if the severity and cstate are the same.
+   bool mIgnoreFlag;
+
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
@@ -137,6 +141,14 @@ public:
 
    // Return a string for all of the variables.
    std::string getAlarmFileJsonString();
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   // Return true if these variables will change the record.
+   bool willChange(int aSeverity, bool aCState);
 };
 
 
