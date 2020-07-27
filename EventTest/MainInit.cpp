@@ -10,9 +10,9 @@
 
 void main_initialize(int argc,char** argv)
 {
-   printf("EventThread Program**********************************************BEGIN\n");
-   printf("EventThread Program**********************************************BEGIN\n");
-   printf("EventThread Program**********************************************BEGIN\n\n");
+   printf("EventTest Program**********************************************BEGIN\n");
+   printf("EventTest Program**********************************************BEGIN\n");
+   printf("EventTest Program**********************************************BEGIN\n\n");
 
    //***************************************************************************
    //***************************************************************************
@@ -20,7 +20,7 @@ void main_initialize(int argc,char** argv)
    // Initialize thread services.
 
    TS::reset();
-   TS::setProgramName("EventThread");
+   TS::setProgramName("EventTest");
    TS::setProgramPrintLevel(TS::PrintLevel(2, 2));
    TS::initialize();
 
@@ -85,7 +85,7 @@ void main_finalize()
 
    // done.
    printf("\n");
-   printf("EventThread Program**********************************************END\n\n");
+   printf("EventTest Program**********************************************END\n\n");
 }
 
 //******************************************************************************
