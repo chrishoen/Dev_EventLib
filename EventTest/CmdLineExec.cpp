@@ -103,13 +103,13 @@ void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
 void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
 {
    aCmd->setArgDefault(1, 0);
-   aCmd->setArgDefault(2, 0);
-   aCmd->setArgDefault(3, false);
+   aCmd->setArgDefault(2, false);
+   aCmd->setArgDefault(3, 0);
    int tEvtId = aCmd->argInt(1);
-   int tSeverity = aCmd->argInt(2);
    bool tCState = aCmd->argBool(3);
+   int tSeverity = aCmd->argInt(2);
 
-   Evt::EventRecord* tEventRecord = new Evt::EventRecord(tEvtId,tSeverity,tCState);
+   Evt::EventRecord* tEventRecord = new Evt::EventRecord(tEvtId, tCState, tSeverity);
 
    tEventRecord->setArg1("%d", 101);
    tEventRecord->setArg2("%4.2f", 10.10);

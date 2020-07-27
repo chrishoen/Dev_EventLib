@@ -27,10 +27,6 @@ namespace Evt
 
 void doSendEvent(int aEvtId, bool aCState, int aSeverity)
 {
-   Prn::print(Prn::View11, "LINE101 %d", aEvtId);
-   Prn::print(Prn::View11, "LINE102 %d", aCState);
-   Prn::print(Prn::View11, "LINE103 %d", aSeverity);
-
    // Increment the pending count.
    gEventStore.mEventTable.mArray[aEvtId].mPendingCount++;
 

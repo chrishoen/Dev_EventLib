@@ -21,8 +21,6 @@ namespace Evt
    // Check the function parameters to determine if they will actually
    // change the event table. If they will not and if an event is not
    // currently pending.
-   void doSendEvent22(int sEvtId);
-   void doSendEvent23(int sEvtId, bool aCState);
    void doSendEvent(int sEvtId, bool aCState = true, int aSeverity = 0);
 
 //******************************************************************************
