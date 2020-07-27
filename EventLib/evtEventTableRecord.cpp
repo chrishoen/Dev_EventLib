@@ -173,7 +173,13 @@ Json::Value EventTableRecord::getLogFileJsonValue()
 
 std::string EventTableRecord::getLogFileJsonString()
 {
-   return std::string();
+   // Json variable.
+   Json::Value tJsonValue = getLogFileJsonValue();
+
+   std::string tString;
+   Json::FastWriter tWriter;
+   tString = tWriter.write(tJsonValue);
+   return tString;
 }
 
 //******************************************************************************
