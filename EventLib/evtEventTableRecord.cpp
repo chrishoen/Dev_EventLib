@@ -56,6 +56,7 @@ void EventTableRecord::initialize(
    mShowStringForSet = aShowStringForSet;
    mShowStringForClear = aShowStringForClear;
    mShowStringForAlarm = aShowStringForAlarm;
+   mSeverity = aDefaultSeverity;
 }
 
 //******************************************************************************
