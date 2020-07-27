@@ -39,6 +39,7 @@ void EventTableRecord::reset()
    memset(&mTOA, 0, sizeof(mTOA));
    mSeverity = cEvt_SevUseDefault;
    mCState = false;
+   mPendingCount = 0;
 }
 
 // Initialize.

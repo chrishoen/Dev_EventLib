@@ -9,6 +9,7 @@ Provides a class definition of event table records.
 //******************************************************************************
 
 #include <time.h>
+#include <atomic>
 #include "json.h"
 
 #include "evtEventDefs.h"
@@ -74,6 +75,11 @@ public:
    // arg2 is the threshold.
    char mArgString1[cMaxRecordArgSize];
    char mArgString2[cMaxRecordArgSize];
+
+   // This is used to track if an event has a message pending in the 
+   // event thread pointer que. If it is zero then there are none 
+   // pending.
+   std::atomic<int> mPendingCount;
 
    //***************************************************************************
    //***************************************************************************
