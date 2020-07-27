@@ -57,7 +57,7 @@ void FileWriter::doWriteToAlarmFile(
    for (AlarmList::IntSetItr tItr = aAlarmList.mEvtIdSet.begin(); tItr != aAlarmList.mEvtIdSet.end(); ++tItr)
    {
       // Get json string formatted for an alarm file.
-      std::string tString = aEventTable.mArray[*tItr].getLogFileJsonString();
+      std::string tString = aEventTable.mArray[*tItr].getAlarmFileJsonString();
       // Write the string to the alarm file.
       tOutputFile << tString;
    }
