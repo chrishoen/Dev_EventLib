@@ -9,6 +9,8 @@ Provides a class definition of event table records.
 //******************************************************************************
 
 #include <time.h>
+#include "json.h"
+
 #include "evtEventDefs.h"
 #include "evtEventRecord.h"
 
@@ -104,6 +106,17 @@ public:
    //***************************************************************************
    // Methods.
 
+   // Show.
+   void show(int aPrintFilter = 0);
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Methods.
+
+   // return a string that represents the cstate.
+   const char* getCStateAsString();
+
    // Write a show string into a buffer string. return a pointer to the buffer.
    char* getShowString(char* aBuffer);
 
@@ -112,9 +125,14 @@ public:
    //***************************************************************************
    // Methods.
 
-   // Show.
-   void show(int aPrintFilter = 0);
+   // Return a json value for all of the variables.
+   Json::Value getLogFileJsonValue();
+
+   // Return a string with json for all of the variables.
+   std::string getLogFileJsonString();
 };
+
+
 
 //******************************************************************************
 //******************************************************************************

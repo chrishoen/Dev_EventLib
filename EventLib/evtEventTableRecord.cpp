@@ -75,7 +75,7 @@ void EventTableRecord::show(int aPF)
    Prn::print(aPF, "ShowStringForAlarm      %-s",     mShowStringForAlarm);
    Prn::print(aPF, "TOA                     %s",      get_timespec_asString(mTOA,tBuffer));
    Prn::print(aPF, "Severity                %-s",     get_EvtSeverity_asString(mSeverity));
-   Prn::print(aPF, "CState                  %-s",     my_string_from_bool(mCState));
+   Prn::print(aPF, "CState                  %-s",     getCStateAsString());
    Prn::print(aPF, "ArgString1              %-s",     mArgString1);
    Prn::print(aPF, "ArgString2              %-s",     mArgString2);
 }
@@ -106,6 +106,25 @@ void EventTableRecord::update(EventRecord* aEventRecord)
 //******************************************************************************
 // Write a show string into a buffer string. Return a pointer to the buffer.
 
+const char* EventTableRecord::getCStateAsString()
+{
+   // For type1.
+   if (mType == cEvt_Type1) return "";
+   // For type2, based on the cstate.
+   if (mType == cEvt_Type2)
+   {
+      if (mCState) return "Active";
+      else return "Inactive";
+   }
+
+   return "none";
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Write a show string into a buffer string. Return a pointer to the buffer.
+
 char* EventTableRecord::getShowString(char* aBuffer)
 {
    // Point to the correct source string, based on the variables.
@@ -122,6 +141,39 @@ char* EventTableRecord::getShowString(char* aBuffer)
    // Do a string print into the buffer string, pass in the two armgument strings.
    snprintf(aBuffer, cMaxShowStringSize - 1, tSource, &mArgString1[0], &mArgString2[0]);
    return aBuffer;
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Return a json value for all of the variables.
+
+Json::Value EventTableRecord::getLogFileJsonValue()
+{
+   // Temp buffer.
+   char tBuffer[200];
+
+   // Json variables.
+   Json::Value tJsonValue;
+
+   // Copy members.
+   tJsonValue["TOA"] = get_timespec_asString(mTOA, tBuffer);
+   tJsonValue["EvtId"] = mEvtId;
+   tJsonValue["Severity"] = mSeverity;
+   tJsonValue["CState"] = getCStateAsString();
+   tJsonValue["Show"] = getShowString(tBuffer);
+
+   return tJsonValue;
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Return a string with json for all of the variables.
+
+std::string EventTableRecord::getLogFileJsonString()
+{
+   return std::string();
 }
 
 //******************************************************************************
