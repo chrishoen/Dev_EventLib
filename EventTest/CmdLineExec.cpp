@@ -123,13 +123,13 @@ void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
 void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
 {
    aCmd->setArgDefault(1, 0);
-   aCmd->setArgDefault(2, 0);
-   aCmd->setArgDefault(3, false);
+   aCmd->setArgDefault(2, false);
+   aCmd->setArgDefault(3, 0);
    int tEvtId = aCmd->argInt(1);
-   int tSeverity = aCmd->argInt(2);
-   bool tCState = aCmd->argBool(3);
+   bool tCState = aCmd->argBool(2);
+   int tSeverity = aCmd->argInt(3);
 
-   Evt::doSendEvent(tEvtId, tSeverity, tCState);
+   Evt::doSendEvent(tEvtId, tCState, tSeverity);
 }
 
 //******************************************************************************
