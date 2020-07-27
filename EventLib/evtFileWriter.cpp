@@ -22,8 +22,8 @@ namespace Evt
 
 FileWriter::FileWriter()
 {
-   strcpy(mLogFilePath, "C:\\aaa_prime\\EventLib\np_tta_eventlog.txt");
-   strcpy(mAlarmFilePath, "C:\\aaa_prime\\EventLib\np_tta_alarmlist.txt");
+   mLogFilePath = "C:\\aaa_prime\\EventLib\\np_tta_eventlog.txt";
+   mAlarmFilePath = "C:\\aaa_prime\\EventLib\\np_tta_alarmlist.txt";
 }
 
 //******************************************************************************
@@ -37,7 +37,7 @@ void FileWriter::doWriteToLogFile(EventTableRecord* aEventTableRecord)
    std::string tString = aEventTableRecord->getLogFileJsonString();
 
    // Write append the string to the log file.
-   doAppendStringToFile(tString, mLogFilePath);
+   doAppendStringToFile(tString, &mLogFilePath[0]);
 }
 
 //******************************************************************************
@@ -63,6 +63,8 @@ void FileWriter::doAppendStringToFile(
    const std::string& aString,        // Input
    const std::string& aFilePath)      // Input
 {
+   Prn::print(Prn::View11, "LINE101 %s", aFilePath.c_str());
+   Prn::print(Prn::View11, "LINE102 %s", aString.c_str());
    std::ofstream tOutputFile(aFilePath, std::ofstream::app);
    tOutputFile << aString;
    tOutputFile.close();

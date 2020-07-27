@@ -38,8 +38,8 @@ public:
    // Members.
 
    // File paths for the event log and the alarm list files.
-   char mLogFilePath[cMaxStringSize];
-   char mAlarmFilePath[cMaxStringSize];
+   std::string mLogFilePath;
+   std::string mAlarmFilePath;
 
    // Constructor.
    FileWriter();
