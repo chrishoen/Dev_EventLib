@@ -31,10 +31,10 @@ FileWriter::FileWriter()
 //******************************************************************************
 // Write an event table record as a json string to the event log file.
 
-void FileWriter::doWriteToLogFile(EventTableRecord* aEventTableRecord)
+void FileWriter::doWriteToLogFile(EventTableRecord& aEventTableRecord)
 {
    // Get json string formatted for a log file.
-   std::string tString = aEventTableRecord->getLogFileJsonString();
+   std::string tString = aEventTableRecord.getLogFileJsonString();
 
    // Write append the string to the log file.
    doAppendStringToFile(tString, &mLogFilePath[0]);
@@ -45,10 +45,10 @@ void FileWriter::doWriteToLogFile(EventTableRecord* aEventTableRecord)
 //******************************************************************************
 // Write an event table record as a json string to the alarm list file.
 
-void FileWriter::doWriteToAlarmFile(EventTableRecord* aEventTableRecord)
+void FileWriter::doWriteToAlarmFile(EventTableRecord& aEventTableRecord)
 {
    // Get json string formatted for an alarm file.
-   std::string tString = aEventTableRecord->getLogFileJsonString();
+   std::string tString = aEventTableRecord.getLogFileJsonString();
 
    // Write append the string to the alarm file.
    doAppendStringToFile(tString, mAlarmFilePath);

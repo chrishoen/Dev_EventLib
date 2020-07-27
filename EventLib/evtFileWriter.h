@@ -50,10 +50,10 @@ public:
    // Methods.
 
    // Write an event table record as a json string to the event log file.
-   void doWriteToLogFile(EventTableRecord* aEventTableRecord);
+   void doWriteToLogFile(EventTableRecord& aEventTableRecord);
 
    // Write an event table record as a json string to the alarm list file.
-   void doWriteToAlarmFile(EventTableRecord* aEventTableRecord);
+   void doWriteToAlarmFile(EventTableRecord& aEventTableRecord);
 
    // Write append a string to a file.
    void doAppendStringToFile(

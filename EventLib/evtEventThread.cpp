@@ -123,18 +123,19 @@ void EventThread::processEventRecord(EventRecord* aEventRecord)
    {
       // If the table was changed:
       char tBuffer[200];
+      int tEvtId = aEventRecord->mEvtId;
 
       // Print.
       Prn::print(Prn::View11, "%s",
-         gEventStore.mEventTable.mArray[aEventRecord->mEvtId].getLogFileShowString(tBuffer));
+         gEventStore.mEventTable.mArray[tEvtId].getLogFileShowString(tBuffer));
 
       // Write to the event log file.
       gEventStore.mFileWriter.doWriteToLogFile(
-         &gEventStore.mEventTable.mArray[aEventRecord->mEvtId]);
+         gEventStore.mEventTable.mArray[tEvtId]);
 
       // Update the alarm list.
       Evt::gEventStore.mAlarmList.update(
-         &Evt::gEventStore.mEventTable.mArray[aEventRecord->mEvtId]);
+         &Evt::gEventStore.mEventTable.mArray[tEvtId]);
    }
 
    // Done.
