@@ -10,6 +10,7 @@
 #include "evtEventRecord.h"
 #include "evtEventStore.h"
 #include "evtEventThread.h"
+#include "evtInterface.h"
 
 #include "risCmdLineConsole.h"
 #include "CmdLineExec.h"
@@ -121,6 +122,14 @@ void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
 {
+   aCmd->setArgDefault(1, 0);
+   aCmd->setArgDefault(2, 0);
+   aCmd->setArgDefault(3, false);
+   int tEvtId = aCmd->argInt(1);
+   int tSeverity = aCmd->argInt(2);
+   bool tCState = aCmd->argBool(3);
+
+   Evt::doSendEvent(tEvtId, tSeverity, tCState);
 }
 
 //******************************************************************************
