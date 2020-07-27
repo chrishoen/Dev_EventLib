@@ -63,8 +63,6 @@ void FileWriter::doAppendStringToFile(
    const std::string& aString,        // Input
    const std::string& aFilePath)      // Input
 {
-   Prn::print(Prn::View11, "LINE101 %s", aFilePath.c_str());
-   Prn::print(Prn::View11, "LINE102 %s", aString.c_str());
    std::ofstream tOutputFile(aFilePath, std::ofstream::app);
    tOutputFile << aString;
    tOutputFile.close();
