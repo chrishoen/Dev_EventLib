@@ -55,6 +55,10 @@ public:
    // Write an event table record as a json string to the alarm list file.
    void doWriteJsonToAlarmFile(EventTableRecord* aEventTableRecord);
 
+   // Write append a string to a file.
+   void doAppendStringToFile(
+      const std::string& aString,        // Input
+      const std::string& aFilePath);     // Input
 };
 
 //******************************************************************************

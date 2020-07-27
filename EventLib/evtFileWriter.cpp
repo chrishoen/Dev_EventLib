@@ -33,8 +33,11 @@ FileWriter::FileWriter()
 
 void FileWriter::doWriteJsonToLogFile(EventTableRecord* aEventTableRecord)
 {
-   // Json variable.
+   // Get json string formatted for a log file.
    std::string tString = aEventTableRecord->getLogFileJsonString();
+
+   // Write append the string to the log file.
+   doAppendStringToFile(tString, mLogFilePath);
 }
 
 //******************************************************************************
@@ -44,8 +47,25 @@ void FileWriter::doWriteJsonToLogFile(EventTableRecord* aEventTableRecord)
 
 void FileWriter::doWriteJsonToAlarmFile(EventTableRecord* aEventTableRecord)
 {
-   // Json variable.
-   Json::Value tJsonValue = aEventTableRecord->getAlarmFileJsonString();
+   // Get json string formatted for an alarm file.
+   std::string tString = aEventTableRecord->getLogFileJsonString();
+
+   // Write append the string to the alarm file.
+   doAppendStringToFile(tString, mAlarmFilePath);
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+// Write append a string to a file.
+
+void FileWriter::doAppendStringToFile(
+   const std::string& aString,        // Input
+   const std::string& aFilePath)      // Input
+{
+   std::ofstream tOutputFile(aFilePath, std::ofstream::app);
+   tOutputFile << aString;
+   tOutputFile.close();
 }
 
 
