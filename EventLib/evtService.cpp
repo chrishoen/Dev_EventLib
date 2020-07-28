@@ -38,7 +38,7 @@ void doSendEvent(int aEvtId, bool aCState, int aSeverity)
 
    // Test if the event should be sent.
    bool tSendFlag = false;
-   // Always send type2 events
+   // Always send type1 events
    if (gEventStore.mEventTable.mArray[aEvtId].mType == cEvt_Type1)
    {
       tSendFlag = true;
@@ -46,7 +46,7 @@ void doSendEvent(int aEvtId, bool aCState, int aSeverity)
    // Test type2 events.
    else
    {
-      // If an event is aalready pending in the message queue then send it
+      // If an event is already pending in the message queue then this one.
       if (gEventStore.mEventTable.mArray[aEvtId].mPendingCount.load() != 1) tSendFlag = true;
       // If the event table will change then send it.
       if (gEventStore.mEventTable.mArray[aEvtId].willChange(aSeverity, aCState)) tSendFlag = true;
@@ -68,8 +68,8 @@ void doSendEvent(int aEvtId, bool aCState, int aSeverity)
    else
    {
       Prn::print(Prn::View11, "IGNORE");
-      // Increment the pending count.
-      gEventStore.mEventTable.mArray[aEvtId].mPendingCount++;
+      // Decrement the pending count.
+      gEventStore.mEventTable.mArray[aEvtId].mPendingCount--;
    }
 }
 
@@ -98,7 +98,7 @@ EventRecord* trySendEvent(int aEvtId, bool aCState = true, int aSeverity = 0)
    // Test type2 events.
    else
    {
-      // If an event is aalready pending in the message queue then send it
+      // If an event is already pending in the message queue then it.
       if (gEventStore.mEventTable.mArray[aEvtId].mPendingCount.load() != 1) tSendFlag = true;
       // If the event table will change then send it.
       if (gEventStore.mEventTable.mArray[aEvtId].willChange(aSeverity, aCState)) tSendFlag = true;
@@ -120,8 +120,8 @@ EventRecord* trySendEvent(int aEvtId, bool aCState = true, int aSeverity = 0)
    else
    {
       Prn::print(Prn::View11, "IGNORE");
-      // Increment the pending count.
-      gEventStore.mEventTable.mArray[aEvtId].mPendingCount++;
+      // Decrement the pending count.
+      gEventStore.mEventTable.mArray[aEvtId].mPendingCount--;
       return 0;
    }
    return 0;

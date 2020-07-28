@@ -59,10 +59,10 @@ static const int cEvt_SevCritical = 4;
 // derived from inspecting the event table.
 
 // Event identifiers.
-static const int cEvtId_Test1 = 0;
-static const int cEvtId_Test2 = 1;
-static const int cEvtId_Test3 = 2;
-static const int cEvtId_Test4 = 3;
+static const int cEvtId_Test0 = 0;
+static const int cEvtId_Test1 = 1;
+static const int cEvtId_Test2 = 2;
+static const int cEvtId_Test3 = 3;
 
 // Maximum number of events. This defines the size of the event table.
 static const int cEvt_MaxNumEvents = 4;

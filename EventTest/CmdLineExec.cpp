@@ -57,7 +57,23 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   aCmd->setArgDefault(1, 0);
+   aCmd->setArgDefault(1, 1);
+   aCmd->setArgDefault(2, false);
+   aCmd->setArgDefault(3, 0);
+   int tEvtId = aCmd->argInt(1);
+   bool tCState = aCmd->argBool(2);
+   int tSeverity = aCmd->argInt(3);
+
+   Evt::doSendEvent(tEvtId, tCState, tSeverity);
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
+{
+   aCmd->setArgDefault(1, 1);
    aCmd->setArgDefault(2, false);
    aCmd->setArgDefault(3, 0);
    int tEvtId = aCmd->argInt(1);
@@ -72,22 +88,6 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 
       tEventRecord->sendToEventThread();
    }
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-
-void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
-{
-   aCmd->setArgDefault(1, 0);
-   aCmd->setArgDefault(2, false);
-   aCmd->setArgDefault(3, 0);
-   int tEvtId = aCmd->argInt(1);
-   bool tCState = aCmd->argBool(2);
-   int tSeverity = aCmd->argInt(3);
-
-   Evt::doSendEvent(tEvtId, tCState, tSeverity);
 }
 
 //******************************************************************************

@@ -43,6 +43,14 @@ void EventTable::initializeRecord(
 void EventTable::initialize()
 {
    initializeRecord(
+      Evt::cEvtId_Test0,
+      Evt::cEvt_Type1,
+      Evt::cEvt_SevInfo,
+      "Set Event for Test0 %s %s",
+      "",
+      "");
+
+   initializeRecord(
       Evt::cEvtId_Test1,
       Evt::cEvt_Type2,
       Evt::cEvt_SevCritical,
@@ -65,14 +73,6 @@ void EventTable::initialize()
       "Set Event for Test3",
       "Clear Event for Test3",
       "ALARM FOR TEST3");
-
-   initializeRecord(
-      Evt::cEvtId_Test4,
-      Evt::cEvt_Type2,
-      Evt::cEvt_SevCritical,
-      "Set Event for Test4",
-      "Clear Event for Test4",
-      "ALARM FOR TEST4");
 }
 
 //******************************************************************************
