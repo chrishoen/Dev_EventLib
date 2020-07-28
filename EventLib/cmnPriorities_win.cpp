@@ -25,19 +25,8 @@ Priorities::Priorities()
 {
    mTsPrint           = Ris::Threads::Priority(-1, THREAD_PRIORITY_ABOVE_NORMAL);
    mEventThread       = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
-   mBinaryComm        = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
-   mSerialMsg         = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
-   mGCodeComm         = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
-   mSerialString      = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
-   mGraphics          = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
-   mScriptSeqLong     = Ris::Threads::Priority(-1, THREAD_PRIORITY_HIGHEST);
-   mScriptSeqShort    = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
-
-   mControl           = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
-   mControlUdp        = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
-   mIsoch             = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
-
-   mForceSerialRx     = Ris::Threads::Priority(-1, THREAD_PRIORITY_ABOVE_NORMAL);
+   mRandomThread1     = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
+   mRandomThread2     = Ris::Threads::Priority(-1, THREAD_PRIORITY_NORMAL);
 }
 
 //******************************************************************************

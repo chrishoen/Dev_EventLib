@@ -32,18 +32,8 @@ public:
 
    Ris::Threads::Priority mTsPrint;
    Ris::Threads::Priority mEventThread;
-   Ris::Threads::Priority mBinaryComm;
-   Ris::Threads::Priority mBinarySim;
-   Ris::Threads::Priority mSerialMsg;
-   Ris::Threads::Priority mGCodeComm;
-   Ris::Threads::Priority mSerialString;
-   Ris::Threads::Priority mGraphics;
-   Ris::Threads::Priority mScriptSeqLong;
-   Ris::Threads::Priority mScriptSeqShort;
-   Ris::Threads::Priority mControl;
-   Ris::Threads::Priority mControlUdp;
-   Ris::Threads::Priority mIsoch;
-   Ris::Threads::Priority mForceSerialRx;
+   Ris::Threads::Priority mRandomThread1;
+   Ris::Threads::Priority mRandomThread2;
 
    //***************************************************************************
    //***************************************************************************

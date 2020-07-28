@@ -7,6 +7,7 @@
 #include "stdafx.h"
 
 #include "someThreadParms.h"
+#include "cmnPriorities.h"
 
 #define  _SOMETIMERTHREAD_CPP_
 #include "someRandomTimerThread.h"
@@ -19,19 +20,27 @@ namespace Some
 //******************************************************************************
 
 RandomTimerThread::RandomTimerThread(int aIdent)
-   : mIdent(aIdent),
-     mRandomGen(mRandomDevice()),
+   : mRandomGen(mRandomDevice()),
      mRandomDelay(gThreadParms.mDelaySpan1, gThreadParms.mDelaySpan2),
      mRandomEvtId(gThreadParms.mEvtIdSpan1, gThreadParms.mEvtIdSpan2),
      mRandomCState(gThreadParms.mCStateSpan1, gThreadParms.mCStateSpan2),
      mRandomSeverity(gThreadParms.mSeveritySpan1, gThreadParms.mSeveritySpan2)
 {
-   // Set base class thread parameters.
-   BaseClass::setThreadName("RandomTimer1");
-   BaseClass::setThreadPrintLevel(TS::PrintLevel(0, 0));
-
    mIdent = aIdent;
    mTPFlag = false;
+
+   // Set base class thread parameters.
+   if (mIdent == 1)
+   {
+      BaseClass::setThreadName("RandomThread1");
+      BaseClass::setThreadPriority(Cmn::gPriorities.mRandomThread1);
+   }
+   else
+   {
+      BaseClass::setThreadName("RandomThread2");
+      BaseClass::setThreadPriority(Cmn::gPriorities.mRandomThread2);
+   }
+   BaseClass::setThreadPrintLevel(TS::PrintLevel(0, 0));
 }
 
 //******************************************************************************
@@ -68,7 +77,7 @@ void RandomTimerThread::threadRunFunction()
       int tEvtId    = mRandomEvtId(mRandomGen);
       int tCState   = mRandomCState(mRandomGen);
       int tSeverity = mRandomSeverity(mRandomGen);
-      Prn::print(Prn::View21, "Delay %4d %4d %4d %4d",tDelay,tEvtId,tCState,tSeverity);
+      Prn::print(Prn::View21, "RANDOM %4d  %4d %4d %4d %4d",mIdent, tDelay,tEvtId,tCState,tSeverity);
       BaseClass::threadSleep(tDelay);
 
       // If not enabled then continue the loop.

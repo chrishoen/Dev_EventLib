@@ -31,7 +31,9 @@ int main(int argc,char** argv)
    Evt::gEventThread->launchThread();
 
    Some::gRandomTimerThread1 = new Some::RandomTimerThread(1);
+   Some::gRandomTimerThread2 = new Some::RandomTimerThread(2);
    Some::gRandomTimerThread1->launchThread();
+   Some::gRandomTimerThread2->launchThread();
 
    //***************************************************************************
    //***************************************************************************
@@ -41,6 +43,7 @@ int main(int argc,char** argv)
    Ris::Threads::showCurrentThreadInfo();
    if (Evt::gEventThread)       Evt::gEventThread->showThreadInfo();
    if (Some::gRandomTimerThread1) Some::gRandomTimerThread1->showThreadInfo();
+   if (Some::gRandomTimerThread2) Some::gRandomTimerThread2->showThreadInfo();
 
    //***************************************************************************
    //***************************************************************************
@@ -58,6 +61,7 @@ int main(int argc,char** argv)
 
    if (Evt::gEventThread)   Evt::gEventThread->shutdownThread();
    if (Some::gRandomTimerThread1)   Some::gRandomTimerThread1->shutdownThread();
+   if (Some::gRandomTimerThread2)   Some::gRandomTimerThread2->shutdownThread();
 
    //***************************************************************************
    //***************************************************************************
@@ -74,6 +78,12 @@ int main(int argc,char** argv)
    {
       delete Some::gRandomTimerThread1;
       Some::gRandomTimerThread1 = 0;
+   }
+
+   if (Some::gRandomTimerThread2)
+   {
+      delete Some::gRandomTimerThread2;
+      Some::gRandomTimerThread2 = 0;
    }
 
    //***************************************************************************
