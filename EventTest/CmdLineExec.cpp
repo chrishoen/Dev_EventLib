@@ -57,51 +57,6 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 {
-   Evt::EventTableRecord tRecord;
-   tRecord.initialize(
-      Evt::cEvtId_Test1,
-      Evt::cEvt_Type2,
-      Evt::cEvt_SevCritical,
-      "Set Event for Test1",
-      "Clear Event for Test1",
-      "Alarm for Test1");
-
-   tRecord.show();
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-
-void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
-{
-   Evt::EventRecord tEventRecord;
-   tEventRecord.mEvtId = Evt::cEvtId_Test1;
-   tEventRecord.mCState = true;
-
-   Evt::gEventStore.mEventTable.update(&tEventRecord);
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-
-void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
-{
-   Evt::EventRecord* tEventRecord = new Evt::EventRecord(Evt::cEvtId_Test1,aCmd->argBool(1));
-
-   tEventRecord->setArg1("%d", 101);
-   tEventRecord->setArg2("%4.2f", 10.10);
-
-   tEventRecord->sendToEventThread();
-}
-
-//******************************************************************************
-//******************************************************************************
-//******************************************************************************
-
-void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
-{
    aCmd->setArgDefault(1, 0);
    aCmd->setArgDefault(2, false);
    aCmd->setArgDefault(3, 0);
@@ -109,18 +64,21 @@ void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
    bool tCState = aCmd->argBool(2);
    int tSeverity = aCmd->argInt(3);
 
-   Evt::EventRecord* tEventRecord = new Evt::EventRecord(tEvtId, tCState, tSeverity);
+   Evt::EventRecord* tEventRecord = Evt::trySendEvent(tEvtId, tCState, tSeverity);
+   if (tEventRecord)
+   {
+      tEventRecord->setArg1("%d", 101);
+      tEventRecord->setArg2("%4.2f", 10.10);
 
-   tEventRecord->setArg1("%d", 101);
-   tEventRecord->setArg2("%4.2f", 10.10);
-
-   tEventRecord->sendToEventThread();
+      tEventRecord->sendToEventThread();
+   }
 }
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
-void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
+
+void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 {
    aCmd->setArgDefault(1, 0);
    aCmd->setArgDefault(2, false);
@@ -130,6 +88,29 @@ void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
    int tSeverity = aCmd->argInt(3);
 
    Evt::doSendEvent(tEvtId, tCState, tSeverity);
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeGo3(Ris::CmdLineCmd* aCmd)
+{
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
+{
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
+{
 }
 
 //******************************************************************************

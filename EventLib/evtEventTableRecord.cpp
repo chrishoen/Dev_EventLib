@@ -94,6 +94,7 @@ void EventTableRecord::show(int aPF)
 
 void EventTableRecord::update(EventRecord* aEventRecord)
 {
+   // Set member variables.
    mEvtId = aEventRecord->mEvtId;
    mTOA = aEventRecord->mTOA;
 
@@ -106,6 +107,13 @@ void EventTableRecord::update(EventRecord* aEventRecord)
 
    strncpy(mArgString1, aEventRecord->mArgString1, cMaxRecordArgSize);
    strncpy(mArgString2, aEventRecord->mArgString2, cMaxRecordArgSize);
+
+   // Decrement the pending count.
+   if (--mPendingCount < 0)
+   {
+      Prn::print(Prn::View11, "ATOMIC ERROR");
+      mPendingCount = 0;
+   }
 }
 
 //******************************************************************************
