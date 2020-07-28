@@ -3,6 +3,8 @@
 #include "risThreadsProcess.h"
 #include "risCmdLineConsole.h"
 #include "evtEventThread.h"
+#include "someRandomTimerThread.h"
+
 #include "CmdLineExec.h"
 
 #include "MainInit.h"
@@ -28,6 +30,9 @@ int main(int argc,char** argv)
    Evt::gEventThread = new Evt::EventThread;
    Evt::gEventThread->launchThread();
 
+   Some::gRandomTimerThread1 = new Some::RandomTimerThread(1);
+   Some::gRandomTimerThread1->launchThread();
+
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
@@ -35,6 +40,7 @@ int main(int argc,char** argv)
 
    Ris::Threads::showCurrentThreadInfo();
    if (Evt::gEventThread)       Evt::gEventThread->showThreadInfo();
+   if (Some::gRandomTimerThread1) Some::gRandomTimerThread1->showThreadInfo();
 
    //***************************************************************************
    //***************************************************************************
@@ -51,6 +57,7 @@ int main(int argc,char** argv)
    // Shutdown program threads.
 
    if (Evt::gEventThread)   Evt::gEventThread->shutdownThread();
+   if (Some::gRandomTimerThread1)   Some::gRandomTimerThread1->shutdownThread();
 
    //***************************************************************************
    //***************************************************************************
@@ -62,6 +69,13 @@ int main(int argc,char** argv)
       delete Evt::gEventThread;
       Evt::gEventThread = 0;
    }
+
+   if (Some::gRandomTimerThread1)
+   {
+      delete Some::gRandomTimerThread1;
+      Some::gRandomTimerThread1 = 0;
+   }
+
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
