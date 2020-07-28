@@ -109,10 +109,12 @@ void EventTableRecord::update(EventRecord* aEventRecord)
    strncpy(mArgString2, aEventRecord->mArgString2, cMaxRecordArgSize);
 
    // Decrement the pending count.
+   Prn::print(Prn::View11, "PendingCount201 %d",
+      mPendingCount.load());
    if (--mPendingCount < 0)
    {
       Prn::print(Prn::View11, "ATOMIC ERROR");
-      mPendingCount = 0;
+      mPendingCount.store(0);
    }
 }
 
