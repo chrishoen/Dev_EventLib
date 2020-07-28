@@ -106,8 +106,8 @@ void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
    aCmd->setArgDefault(2, false);
    aCmd->setArgDefault(3, 0);
    int tEvtId = aCmd->argInt(1);
-   bool tCState = aCmd->argBool(3);
-   int tSeverity = aCmd->argInt(2);
+   bool tCState = aCmd->argBool(2);
+   int tSeverity = aCmd->argInt(3);
 
    Evt::EventRecord* tEventRecord = new Evt::EventRecord(tEvtId, tCState, tSeverity);
 

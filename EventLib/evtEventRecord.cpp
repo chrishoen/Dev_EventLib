@@ -56,6 +56,8 @@ void EventRecord::reset()
    timespec_get(&mTOA, TIME_UTC);
    mSeverity = cEvt_SevUseDefault;
    mCState = false;
+   mArgString1[0] = 0;
+   mArgString2[0] = 0;
 }
 
 //******************************************************************************

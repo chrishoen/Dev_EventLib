@@ -51,9 +51,9 @@ void doSendEvent(int aEvtId, bool aCState, int aSeverity)
    {
       // Create a new event record.
       int tEvtId = aEvtId;
-      int tSeverity = aSeverity;
       bool tCState = aCState;
-      Evt::EventRecord* tEventRecord = new Evt::EventRecord(tEvtId, tSeverity, tCState);
+      int tSeverity = aSeverity;
+      Evt::EventRecord* tEventRecord = new Evt::EventRecord(tEvtId, tCState, tSeverity);
 
       // Send it to the event thread.
       tEventRecord->sendToEventThread();
