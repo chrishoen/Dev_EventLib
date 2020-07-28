@@ -9,6 +9,7 @@ Provides an interface to the event processing service.
 //******************************************************************************
 
 #include "evtEventDefs.h"
+#include "evtEventRecord.h"
 
 namespace Evt
 {

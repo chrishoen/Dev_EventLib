@@ -50,6 +50,7 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
    if (aCmd->isCmd("GO7"))       executeGo7(aCmd);
    if (aCmd->isCmd("GO8"))       executeGo8(aCmd);
    if (aCmd->isCmd("GO9"))       executeGo9(aCmd);
+   if (aCmd->isCmd("TP"))        executeTP(aCmd);
    if (aCmd->isCmd("Parms"))     executeParms(aCmd);
    if (aCmd->isCmd("Show"))      executeShow(aCmd);
 }
@@ -146,6 +147,22 @@ void CmdLineExec::executeGo8(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo9(Ris::CmdLineCmd* aCmd)
 {
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeTP(Ris::CmdLineCmd* aCmd)
+{
+   if (Some::gRandomTimerThread1)
+   {
+      Some::gRandomTimerThread1->mTPFlag = aCmd->argBool(1);
+   }
+   if (Some::gRandomTimerThread2)
+   {
+      Some::gRandomTimerThread2->mTPFlag = aCmd->argBool(1);
+   }
 }
 
 //******************************************************************************

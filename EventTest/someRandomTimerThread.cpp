@@ -9,6 +9,8 @@
 #include "someThreadParms.h"
 #include "cmnPriorities.h"
 
+#include "evtService.h"
+
 #define  _SOMETIMERTHREAD_CPP_
 #include "someRandomTimerThread.h"
 
@@ -66,7 +68,6 @@ void RandomTimerThread::threadInitFunction()
 void RandomTimerThread::threadRunFunction()
 {
    // Loop to wait for posted events and process them.
-   int tCount = 0;
    while (true)
    {
       // Test for thread termination.
@@ -83,7 +84,7 @@ void RandomTimerThread::threadRunFunction()
       // If not enabled then continue the loop.
       if (!mTPFlag) continue;
 
-      tCount++;
+      Evt::doSendEvent(tEvtId, tCState, tSeverity);
    }
 }
 

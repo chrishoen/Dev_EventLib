@@ -41,7 +41,7 @@ int main(int argc,char** argv)
    // Show program threads.
 
    Ris::Threads::showCurrentThreadInfo();
-   if (Evt::gEventThread)       Evt::gEventThread->showThreadInfo();
+   if (Evt::gEventThread)         Evt::gEventThread->showThreadInfo();
    if (Some::gRandomTimerThread1) Some::gRandomTimerThread1->showThreadInfo();
    if (Some::gRandomTimerThread2) Some::gRandomTimerThread2->showThreadInfo();
 
