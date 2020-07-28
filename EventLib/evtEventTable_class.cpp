@@ -70,7 +70,11 @@ bool EventTable::update(EventRecord* aEventRecord)
    {
       // Test for a change in variables.
       if (tTableRecord->mCState   != aEventRecord->mCState) tChangeFlag = true;
-      if (tTableRecord->mSeverity != aEventRecord->mSeverity) tChangeFlag = true;
+
+      if (tTableRecord->mCState)
+      {
+         if (tTableRecord->mSeverity != aEventRecord->mSeverity) tChangeFlag = true;
+      }
    }
    Prn::print(Prn::View11, "LINE101 %d", tChangeFlag);
    // If no change then done.
