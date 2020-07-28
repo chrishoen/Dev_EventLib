@@ -81,8 +81,8 @@ void EventTableRecord::show(int aPF)
    Prn::print(aPF, "ShowStringForClear      %-s",     mShowStringForClear);
    Prn::print(aPF, "ShowStringForAlarm      %-s",     mShowStringForAlarm);
    Prn::print(aPF, "TOA                     %s",      get_timespec_asString(mTOA,tBuffer));
-   Prn::print(aPF, "Severity                %-s",     get_EvtSeverity_asString(mSeverity));
    Prn::print(aPF, "CState                  %-s",     getCStateAsString());
+   Prn::print(aPF, "Severity                %-s",     get_EvtSeverity_asString(mSeverity));
    Prn::print(aPF, "ArgString1              %-s",     mArgString1);
    Prn::print(aPF, "ArgString2              %-s",     mArgString2);
 }
@@ -178,8 +178,8 @@ std::string EventTableRecord::getLogFileJsonString()
    // Copy members to the json variable.
    tJsonValue["TOA"] = get_timespec_asString(mTOA, tBuffer);
    tJsonValue["EvtId"] = mEvtId;
-   tJsonValue["Severity"] = get_EvtSeverity_asString(mSeverity);
    tJsonValue["CState"] = getCStateAsString();
+   tJsonValue["Severity"] = get_EvtSeverity_asString(mSeverity);
    tJsonValue["Show"] = getLogFileShowString(tBuffer);
 
    // Copy the json value to a string.
@@ -208,8 +208,8 @@ std::string EventTableRecord::getAlarmFileJsonString()
    // Copy members to the json variable.
    tJsonValue["TOA"] = get_timespec_asString(mTOA, tBuffer);
    tJsonValue["EvtId"] = mEvtId;
-   tJsonValue["Severity"] = get_EvtSeverity_asString(mSeverity);
    tJsonValue["CState"] = getCStateAsString();
+   tJsonValue["Severity"] = get_EvtSeverity_asString(mSeverity);
    tJsonValue["Show"] = getAlarmFileShowString(tBuffer);
 
    // Copy the json value to a string.

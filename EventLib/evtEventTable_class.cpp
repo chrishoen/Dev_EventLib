@@ -51,6 +51,13 @@ bool EventTable::update(EventRecord* aEventRecord)
    // Nickname.
    EventTableRecord* tTableRecord = &mArray[aEventRecord->mEvtId];
 
+   // Make the input event record consistent.
+   if (aEventRecord->mCState && aEventRecord->mSeverity == cEvt_SevUseDefault)
+   {
+      // Overwrite the input event record severity with the table record
+      // default.
+      aEventRecord->mSeverity = tTableRecord->mDefaultSeverity;
+   }
    // Test if the table record needs to be updated.
    bool tChangeFlag = false;
 
@@ -65,6 +72,7 @@ bool EventTable::update(EventRecord* aEventRecord)
       if (tTableRecord->mCState   != aEventRecord->mCState) tChangeFlag = true;
       if (tTableRecord->mSeverity != aEventRecord->mSeverity) tChangeFlag = true;
    }
+   Prn::print(Prn::View11, "LINE101 %d", tChangeFlag);
    // If no change then done.
    if (!tChangeFlag) return false;
 
