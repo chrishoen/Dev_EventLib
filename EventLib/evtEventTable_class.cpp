@@ -48,41 +48,8 @@ void EventTable::reset()
 
 bool EventTable::update(EventRecord* aEventRecord)
 {
-   // Nickname.
    EventTableRecord* tTableRecord = &mArray[aEventRecord->mEvtId];
-
-   // Make the input event record consistent.
-   if (aEventRecord->mCState && aEventRecord->mSeverity == cEvt_SevUseDefault)
-   {
-      // Overwrite the input event record severity with the table record
-      // default.
-      aEventRecord->mSeverity = tTableRecord->mDefaultSeverity;
-   }
-   // Test if the table record needs to be updated.
-   bool tChangeFlag = false;
-
-   // For type1, always update.
-   if (tTableRecord->mType == cEvt_Type1) tChangeFlag = true;
-
-   // For type2, test some variables. If they don't change, then don't 
-   // update.
-   if (tTableRecord->mType == cEvt_Type2)
-   {
-      // Test for a change in variable.
-      if (tTableRecord->mCState != aEventRecord->mCState) tChangeFlag = true;
-
-      // Test for a change in variable.
-      if (tTableRecord->mCState)
-      {
-         if (tTableRecord->mSeverity != aEventRecord->mSeverity) tChangeFlag = true;
-      }
-   }
-   // If no change then done.
-   if (!tChangeFlag) return false;
-
-   // If it doesn't then update the table record
-   tTableRecord->update(aEventRecord);
-   return true;
+   return tTableRecord->update(aEventRecord);
 }
 
 //******************************************************************************

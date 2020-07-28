@@ -108,8 +108,11 @@ public:
    //***************************************************************************
    // Methods.
 
-   // Update with an event record.
-   void update(EventRecord* aEventRecord);
+   // Update with an event record. Return true if the record was updated. 
+   // Return false if it was not. If this is for a type1 event then
+   // it is updated. If this is for a type2 event and the cstate or severity
+   // changed then it is updated.
+   bool update(EventRecord* aEventRecord);
 
    //***************************************************************************
    //***************************************************************************

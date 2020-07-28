@@ -90,23 +90,71 @@ void EventTableRecord::show(int aPF)
 //***************************************************************************
 //***************************************************************************
 //***************************************************************************
-// Update with an event record.
+// Update with an event record. Return true if the record was updated. 
+// Return false if it was not. If this is for a type1 event then
+// it is updated. If this is for a type2 event and the cstate or severity
+// changed then it is updated.
 
-void EventTableRecord::update(EventRecord* aEventRecord)
+bool EventTableRecord::update(EventRecord* aEventRecord)
 {
-   // Set member variables.
-   mEvtId = aEventRecord->mEvtId;
-   mTOA = aEventRecord->mTOA;
+   //************************************************************************
+   //************************************************************************
+   //************************************************************************
+   // Test if the record needs to change.
 
-   if (aEventRecord->mSeverity != cEvt_SevUseDefault)
+   // Make the input event record consistent.
+   if (aEventRecord->mCState && aEventRecord->mSeverity == cEvt_SevUseDefault)
    {
-      mSeverity = aEventRecord->mSeverity;
+      // Overwrite the input event record severity with the table record
+      // default.
+      aEventRecord->mSeverity = mDefaultSeverity;
+   }
+   // Test if the table record needs to be updated.
+   bool tChangeFlag = false;
+
+   // For type1, always update.
+   if (mType == cEvt_Type1) tChangeFlag = true;
+
+   // For type2, test some variables. If they don't change, then don't 
+   // update.
+   if (mType == cEvt_Type2)
+   {
+      // Test for a change in variable.
+      if (mCState != aEventRecord->mCState) tChangeFlag = true;
+
+      // Test for a change in variable.
+      if (mCState)
+      {
+         if (mSeverity != aEventRecord->mSeverity) tChangeFlag = true;
+      }
    }
 
-   mCState = aEventRecord->mCState;
+   //************************************************************************
+   //************************************************************************
+   //************************************************************************
+   // Update with an event record.
 
-   strncpy(mArgString1, aEventRecord->mArgString1, cMaxRecordArgSize);
-   strncpy(mArgString2, aEventRecord->mArgString2, cMaxRecordArgSize);
+   if (tChangeFlag)
+   {
+      // Set member variables.
+      mEvtId = aEventRecord->mEvtId;
+      mTOA = aEventRecord->mTOA;
+
+      if (aEventRecord->mSeverity != cEvt_SevUseDefault)
+      {
+         mSeverity = aEventRecord->mSeverity;
+      }
+
+      mCState = aEventRecord->mCState;
+
+      strncpy(mArgString1, aEventRecord->mArgString1, cMaxRecordArgSize);
+      strncpy(mArgString2, aEventRecord->mArgString2, cMaxRecordArgSize);
+   }
+
+   //************************************************************************
+   //************************************************************************
+   //************************************************************************
+   // Done.
 
    // Decrement the pending count.
    Prn::print(Prn::View11, "PendingCount201 %d",
@@ -116,6 +164,9 @@ void EventTableRecord::update(EventRecord* aEventRecord)
       Prn::print(Prn::View11, "ATOMIC ERROR");
       mPendingCount.store(0);
    }
+
+   // Return true if it changed.
+   return tChangeFlag;
 }
 
 //******************************************************************************
