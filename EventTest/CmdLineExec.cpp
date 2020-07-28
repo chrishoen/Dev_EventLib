@@ -11,6 +11,8 @@
 #include "evtEventStore.h"
 #include "evtEventThread.h"
 #include "evtService.h"
+#include "someThreadParms.h"
+#include "someRandomTimerThread.h"
 
 #include "risCmdLineConsole.h"
 #include "CmdLineExec.h"
@@ -48,6 +50,7 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
    if (aCmd->isCmd("GO7"))       executeGo7(aCmd);
    if (aCmd->isCmd("GO8"))       executeGo8(aCmd);
    if (aCmd->isCmd("GO9"))       executeGo9(aCmd);
+   if (aCmd->isCmd("Parms"))     executeParms(aCmd);
    if (aCmd->isCmd("Show"))      executeShow(aCmd);
 }
 
@@ -143,6 +146,15 @@ void CmdLineExec::executeGo8(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeGo9(Ris::CmdLineCmd* aCmd)
 {
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
+{
+   Some::gThreadParms.show();
 }
 
 //******************************************************************************

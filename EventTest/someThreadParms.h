@@ -67,17 +67,15 @@ public:
    //***************************************************************************
    // Members.
 
-   // Timer thread.
-   int  mTimerThreadPeriod;
-
-   // Random delay bounds.
-   int mDelayA1;
-   int mDelayA2;
-   int mDelayB1;
-   int mDelayB2;
-
-   // Print code.
-   int mShowCode;
+   // Random integer bounds.
+   int mDelaySpan1;
+   int mDelaySpan2;
+   int mEvtIdSpan1;
+   int mEvtIdSpan2;
+   int mCStateSpan1;
+   int mCStateSpan2;
+   int mSeveritySpan1;
+   int mSeveritySpan2;
 
    //***************************************************************************
    //***************************************************************************

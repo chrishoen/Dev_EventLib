@@ -21,7 +21,10 @@ namespace Some
 RandomTimerThread::RandomTimerThread(int aIdent)
    : mIdent(aIdent),
      mRandomGen(mRandomDevice()),
-     mRandomDis(gThreadParms.mDelayA1, gThreadParms.mDelayA2)
+     mRandomDelay(gThreadParms.mDelaySpan1, gThreadParms.mDelaySpan2),
+     mRandomEvtId(gThreadParms.mEvtIdSpan1, gThreadParms.mEvtIdSpan2),
+     mRandomCState(gThreadParms.mCStateSpan1, gThreadParms.mCStateSpan2),
+     mRandomSeverity(gThreadParms.mSeveritySpan1, gThreadParms.mSeveritySpan2)
 {
    // Set base class thread parameters.
    BaseClass::setThreadName("RandomTimer1");
@@ -61,8 +64,11 @@ void RandomTimerThread::threadRunFunction()
       if (BaseClass::mTerminateFlag) break;
 
       // Wait for a random delay.
-      int tDelay = mRandomDis(mRandomGen);
-      Prn::print(Prn::View21, "Delay %4d",tDelay);
+      int tDelay    = mRandomDelay(mRandomGen);
+      int tEvtId    = mRandomEvtId(mRandomGen);
+      int tCState   = mRandomCState(mRandomGen);
+      int tSeverity = mRandomSeverity(mRandomGen);
+      Prn::print(Prn::View21, "Delay %4d %4d %4d %4d",tDelay,tEvtId,tCState,tSeverity);
       BaseClass::threadSleep(tDelay);
 
       // If not enabled then continue the loop.

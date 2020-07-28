@@ -44,7 +44,10 @@ public:
    // Random number generator for random timer delay.
    std::random_device mRandomDevice;
    std::mt19937       mRandomGen;
-   std::uniform_int_distribution<> mRandomDis;
+   std::uniform_int_distribution<> mRandomDelay;
+   std::uniform_int_distribution<> mRandomEvtId;
+   std::uniform_int_distribution<> mRandomCState;
+   std::uniform_int_distribution<> mRandomSeverity;
 
    //***************************************************************************
    //***************************************************************************

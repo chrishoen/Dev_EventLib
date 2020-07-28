@@ -35,13 +35,14 @@ void ThreadParms::reset()
    //BaseClass::setFileName_RelAlphaFiles("/RisLib/Thread_Parms.txt");
    BaseClass::setFilePath("C:/aaa_prime/EventLib/Thread_Parms.txt");
 
-   mTimerThreadPeriod = 0;
-
-   mDelayA1 = 0;
-   mDelayA2 = 0;
-   mDelayB1 = 0;
-   mDelayB2 = 0;
-   mShowCode = 0;
+   mDelaySpan1 = 0;
+   mDelaySpan2 = 0;
+   mEvtIdSpan1 = 0;
+   mEvtIdSpan2 = 0;
+   mCStateSpan1 = 0;
+   mCStateSpan2 = 0;
+   mSeveritySpan1 = 0;
+   mSeveritySpan2 = 0;
 }
 
 //******************************************************************************
@@ -55,13 +56,12 @@ void ThreadParms::show()
    printf("ThreadParms************************************************ %s\n", mTargetSection);
 
    printf("\n");
-   printf("TimerThreadPeriod     %-10d\n",     mTimerThreadPeriod);
 
    printf("\n");
-   printf("DelayA                %-10d %-4d\n", mDelayA1, mDelayA2);
-   printf("DelayB                %-10d %-4d\n", mDelayB1, mDelayB2);
-   printf("\n");
-   printf("ShowCode              %-10d\n",      mShowCode);
+   printf("DelaySpan                %-10d %-4d\n", mDelaySpan1, mDelaySpan2);
+   printf("EvtIdSpan                %-10d %-4d\n", mEvtIdSpan1, mEvtIdSpan2);
+   printf("CStateSpan               %-10d %-4d\n", mCStateSpan1, mCStateSpan2);
+   printf("SeveritySpan             %-10d %-4d\n", mSeveritySpan1, mSeveritySpan2);
 }
 
 //******************************************************************************
@@ -75,21 +75,29 @@ void ThreadParms::execute(Ris::CmdLineCmd* aCmd)
 {
    if (!isTargetSection(aCmd)) return;
 
-   if (aCmd->isCmd("TimerThreadPeriod"))   mTimerThreadPeriod = aCmd->argInt(1);
-
-   if (aCmd->isCmd("DelayA"))
+   if (aCmd->isCmd("DelaySpan"))
    {
-      mDelayA1 = aCmd->argInt(1);
-      mDelayA2 = aCmd->argInt(2);
+      mDelaySpan1 = aCmd->argInt(1);
+      mDelaySpan2 = aCmd->argInt(2);
    }
 
-   if (aCmd->isCmd("DelayB"))
+   if (aCmd->isCmd("EvtIdSpan"))
    {
-      mDelayB1 = aCmd->argInt(1);
-      mDelayB2 = aCmd->argInt(2);
+      mEvtIdSpan1 = aCmd->argInt(1);
+      mEvtIdSpan2 = aCmd->argInt(2);
    }
 
-   if (aCmd->isCmd("ShowCode"))   mShowCode = aCmd->argInt(1);
+   if (aCmd->isCmd("CStateSpan"))
+   {
+      mCStateSpan1 = aCmd->argInt(1);
+      mCStateSpan2 = aCmd->argInt(2);
+   }
+
+   if (aCmd->isCmd("SeveritySpan"))
+   {
+      mSeveritySpan1 = aCmd->argInt(1);
+      mSeveritySpan2 = aCmd->argInt(2);
+   }
 }
 
 //******************************************************************************
