@@ -10,6 +10,7 @@ my_add_pch (EventLib)
 
 target_include_directories(EventLib INTERFACE ${PROJECT_SOURCE_DIR})
 
+my_inc_import_ShareLib(EventLib)
 my_inc_import_RisLib(EventLib)
 
 if (MSVC OR CMAKE_SYSTEM_VERSION EQUAL 101)

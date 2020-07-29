@@ -10,6 +10,7 @@ Description:
 
 #include "risFileFunctions.h"
 
+#include "smShare.h"
 #include "evtFileWriter.h"
 
 namespace Evt

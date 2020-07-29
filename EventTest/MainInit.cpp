@@ -2,6 +2,7 @@
 
 #include "risThreadsProcess.h"
 #include "someThreadParms.h"
+#include "smShare.h"
 #include "evtEventStore.h"
 
 //******************************************************************************
@@ -62,8 +63,12 @@ void main_initialize(int argc,char** argv)
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Initialize the event store.
+   // Initialize.
 
+   // Initialize shared memory.
+   SM::initializeShare();
+
+   // Initialize the event store.
    Evt::gEventStore.initialize();
 }
 

@@ -8,7 +8,9 @@ my_add_pch (EventTest)
 
 my_inc_import_RisLib(EventTest)
 my_inc_import_EventLib(EventTest)
+my_inc_import_ShareLib(EventTest)
 
+my_lib_import_ShareLib(EventTest)
 my_lib_import_EventLib(EventTest)
 my_lib_import_RisLib(EventTest)
 

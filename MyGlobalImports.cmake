@@ -19,6 +19,8 @@ function(my_init_global_import_variables)
       set (MyRisLibImportPath  "C:/MyTools/MyLib/lib/libRisLib.so" PARENT_SCOPE)
       set (MyDspLibIncludePath "C:/MyTools/MyLib/include/DspLib" PARENT_SCOPE)
       set (MyDspLibImportPath  "C:/MyTools/MyLib/lib/libDspLib.a" PARENT_SCOPE)
+      set (MyShareLibIncludePath "C:/MyTools/MyLib/include/ShareLib" PARENT_SCOPE)
+      set (MyShareLibImportPath  "C:/MyTools/MyLib/lib/libShareLib.so" PARENT_SCOPE)
    endif()
 
 endfunction()
@@ -64,6 +66,25 @@ endfunction()
 function(my_inc_import_DspLib _target)
 
    target_include_directories(${_target} PUBLIC ${MyDspLibIncludePath})
+
+endfunction()
+
+#*******************************************************************************
+#*******************************************************************************
+#*******************************************************************************
+
+function(my_lib_import_ShareLib _target)
+
+   add_library(ShareLib STATIC IMPORTED)
+   set_target_properties(ShareLib PROPERTIES IMPORTED_LOCATION ${MyShareLibImportPath})
+
+   target_link_libraries(${_target} ShareLib)
+
+endfunction()
+
+function(my_inc_import_ShareLib _target)
+
+   target_include_directories(${_target} PUBLIC ${MyShareLibIncludePath})
 
 endfunction()
 
