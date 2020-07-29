@@ -39,7 +39,8 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
    if(aCmd->isCmd("GO2"    ))  executeGo2(aCmd);
    if(aCmd->isCmd("GO3"    ))  executeGo3(aCmd);
    if(aCmd->isCmd("GO4"    ))  executeGo4(aCmd);
-   if(aCmd->isCmd("GO5"    ))  executeGo5(aCmd);
+   if (aCmd->isCmd("GO5"))  executeGo5(aCmd);
+   if (aCmd->isCmd("GO6"))  executeGo6(aCmd);
 }
 
 //******************************************************************************
@@ -112,8 +113,74 @@ void CmdLineExec::executeGo4(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
+void FindWord(char* word, char* file) {
+   char line[1024];
+   FILE* fp = fopen(file, "r");
+   while (fgets(line, sizeof(line), fp) != NULL)
+   {
+      if (strstr(line, word) != NULL)
+      {
+         printf("%s", line);
+      }
+   }
+}
+
+void get_value_from_json(const char* key) {
+   FILE* j;
+   char line[200];
+   size_t len = 0;
+   //size_t read;
+   char* ret;
+   j = fopen("/mnt/flash/snmp/snmpd.json", "r");
+   if (!j) {
+      return;
+   }
+   while (fgets(line, 200, j) != NULL) {
+      ret = strstr(line, key);
+      if (ret) {
+         printf("%s", line);
+      }
+   }
+   fclose(j);
+}
 
 void CmdLineExec::executeGo5(Ris::CmdLineCmd* aCmd)
 {
+   char* tString = "key:value";
+   int index = 0;
+   for (int i = 0; i < strlen(tString); i++)
+   {
+      if (tString[i] == ':')
+      {
+         index = i;
+         break;
+      }
+   }
+
+   char* tValue = &tString[index + 1];
+   printf("%s\n", tValue);
+
+
+}
+
+void CmdLineExec::executeGo6(Ris::CmdLineCmd* aCmd)
+{
+   char* tString = "key:va&lue";
+   char tPacked[200];
+   int index = 0;
+   for (int i = 0; i < strlen(tString); i++)
+   {
+      char c = tString[i];
+      if (c != ':' && c != '&')
+      {
+         tPacked[index] = c;
+         index++;
+      }
+   }
+   tPacked[index] = 0;
+
+   printf("%s\n", tPacked);
+
+
 }
 
