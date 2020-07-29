@@ -11,8 +11,6 @@ my_add_pch (Test)
 my_inc_import_RisLib(Test)
 my_lib_import_RisLib(Test)
 
-return()
-
 if (MSVC)
    add_custom_command(
       TARGET  Test
@@ -20,7 +18,7 @@ if (MSVC)
       COMMAND ${CMAKE_COMMAND} -E copy Test.exe c:/aaa_prime/EventLib/Test.exe
       WORKING_DIRECTORY C:/Users/$ENV{username}/CMakeBuilds/Dev_EventLib/Test)
 elseif(NOT CMAKE_SYSTEM_VERSION EQUAL 101)
-   install(TARGETS sysgaincalc DESTINATION "/opt/prime/bin")
+   install(TARGETS Test DESTINATION "/opt/prime/bin")
 else()
 add_custom_command(
    TARGET  Test
