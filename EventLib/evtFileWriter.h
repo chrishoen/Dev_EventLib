@@ -51,7 +51,8 @@ public:
    //***************************************************************************
    // Methods.
 
-   // Write an event table record as a json string to the event log file.
+   // Write an event table record as a json string to the event log file and
+   // the shared memory event notify queue.
    void doWriteToLogFile(
       EventTableRecord& aEventTableRecord);     // Input
 
