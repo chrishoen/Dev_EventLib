@@ -22,8 +22,11 @@ namespace Evt
 
 FileWriter::FileWriter()
 {
-   mLogFilePath = "C:\\aaa_prime\\EventLib\\np_tta_eventlog.txt";
-   mAlarmFilePath = "C:\\aaa_prime\\EventLib\\np_tta_alarmlist.txt";
+   //mLogFilePath = "C:\\aaa_prime\\EventLib\\np_tta_eventlog.txt";
+   //mAlarmFilePath = "C:\\aaa_prime\\EventLib\\np_tta_alarmlist.txt";
+
+   mLogFilePath = "/var/log/np_tta_event.log";
+   mAlarmFilePath = "/var/log/np_tta_alarm.txt";
 }
 
 //******************************************************************************

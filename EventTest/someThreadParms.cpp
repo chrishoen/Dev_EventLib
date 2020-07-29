@@ -33,7 +33,8 @@ void ThreadParms::reset()
 {
    BaseClass::reset();
    //BaseClass::setFileName_RelAlphaFiles("/RisLib/Thread_Parms.txt");
-   BaseClass::setFilePath("C:/aaa_prime/EventLib/Thread_Parms.txt");
+   //BaseClass::setFilePath("C:/aaa_prime/EventLib/Thread_Parms.txt");
+   BaseClass::setFilePath("/opt/prime/files/Thread_Parms.txt");
 
    mDelaySpan1 = 0;
    mDelaySpan2 = 0;
