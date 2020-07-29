@@ -39,6 +39,8 @@ FileWriter::FileWriter()
 void FileWriter::doWriteToLogFile(
    EventTableRecord& aEventTableRecord)     // Input
 {
+   Prn::print(Prn::View11, "doWriteToLogFile");
+
    // Get json string formatted for a log file.
    std::string tString = aEventTableRecord.getLogFileJsonString();
 
@@ -48,6 +50,7 @@ void FileWriter::doWriteToLogFile(
    // Try to write to the shared memory event notify string.
    if (char* tQueueString = (char*)SM::gShare->mEventNotifyQueue.tryStartWrite())
    {
+      Prn::print(Prn::View11, "EVENT NOTIFY QUEUE WRITE");
       // Write the string.
       strncpy(tQueueString, tString.c_str(), SM::gShare->mEventNotifyQueue.cMaxStringSize);
       // Finish the write.

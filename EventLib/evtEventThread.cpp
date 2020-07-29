@@ -41,7 +41,6 @@ EventThread::~EventThread()
 void EventThread::threadInitFunction()
 {
    Prn::print(Prn::View11, "EventThread::threadInitFunction**********************");
-   printf("LINE101\n");
    // Initialize the string queue.
    mEventRecordQueue.initialize(cQueueSize);
 }
