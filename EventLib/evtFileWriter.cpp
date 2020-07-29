@@ -43,6 +43,20 @@ void FileWriter::doWriteToLogFile(
 
    // Write append the string to the log file.
    doAppendStringToFile(tString, &mLogFilePath[0]);
+
+   // Try to write to the shared memory event notify string.
+   if (char* tQueueString = (char*)SM::gShare->mEventNotifyQueue.tryStartWrite())
+   {
+      // Write the string.
+      strncpy(tQueueString, tString.c_str(), SM::gShare->mEventNotifyQueue.cMaxStringSize);
+      // Finish the write.
+      SM::gShare->mEventNotifyQueue.finishWrite();
+   }
+   else
+   {
+      Prn::print(Prn::View11, "EVENT NOTIFY QUEUE FULL");
+   }
+
 }
 
 //******************************************************************************
