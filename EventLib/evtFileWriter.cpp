@@ -60,7 +60,6 @@ void FileWriter::doWriteToLogFile(
    {
       Prn::print(Prn::View11, "EVENT NOTIFY QUEUE FULL");
    }
-
 }
 
 //******************************************************************************
