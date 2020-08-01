@@ -44,6 +44,8 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
    if (aCmd->isCmd("P"))         Prn::toggleSuppressPrint();
    if (aCmd->isCmd("S"))         Prn::suppressPrint();
    if (aCmd->isCmd("U"))         Prn::unsuppressPrint();
+   if (aCmd->isCmd("Send1"))     executeSend1(aCmd);
+   if (aCmd->isCmd("Send2"))     executeSend2(aCmd);
    if (aCmd->isCmd("GO1"))       executeGo1(aCmd);
    if (aCmd->isCmd("GO2"))       executeGo2(aCmd);
    if (aCmd->isCmd("GO3"))       executeGo3(aCmd);
@@ -62,7 +64,7 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 
-void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
+void CmdLineExec::executeSend1(Ris::CmdLineCmd* aCmd)
 {
    aCmd->setArgDefault(1, 1);
    aCmd->setArgDefault(2, false);
@@ -78,7 +80,7 @@ void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
 //******************************************************************************
 //******************************************************************************
 
-void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
+void CmdLineExec::executeSend2(Ris::CmdLineCmd* aCmd)
 {
    aCmd->setArgDefault(1, 1);
    aCmd->setArgDefault(2, false);
@@ -95,6 +97,25 @@ void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
 
       tEventRecord->sendToEventThread();
    }
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeGo1(Ris::CmdLineCmd* aCmd)
+{
+   Prn::print(0, "GO1 0");
+   Prn::print(Prn::View01, "GO1 View01");
+   Prn::print(Prn::View11, "GO1 View11");
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeGo2(Ris::CmdLineCmd* aCmd)
+{
 }
 
 //******************************************************************************
