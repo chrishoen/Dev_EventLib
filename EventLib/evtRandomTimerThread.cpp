@@ -6,15 +6,15 @@
 //******************************************************************************
 #include "stdafx.h"
 
-#include "someThreadParms.h"
+#include "evtThreadParms.h"
 #include "cmnPriorities.h"
 
 #include "evtService.h"
 
 #define  _SOMETIMERTHREAD_CPP_
-#include "someRandomTimerThread.h"
+#include "evtRandomTimerThread.h"
 
-namespace Some
+namespace Evt
 {
 
 //******************************************************************************

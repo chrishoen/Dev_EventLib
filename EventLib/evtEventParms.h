@@ -14,7 +14,7 @@ Parameters class whose values are read from a command file.
 //******************************************************************************
 //******************************************************************************
 
-namespace Some
+namespace Evt
 {
 
 //******************************************************************************
@@ -46,7 +46,7 @@ namespace Some
 // structure. If so, then this class is the root.
 // 
 
-class ThreadParms : public Ris::BaseCmdLineParms
+class EventParms : public Ris::BaseCmdLineParms
 {
 public:
 
@@ -89,7 +89,7 @@ public:
 
    // Constructor,
    typedef Ris::BaseCmdLineParms BaseClass;
-   ThreadParms();
+   EventParms();
    void reset();
    void show();
 
@@ -109,9 +109,9 @@ public:
 // Global instance.
 
 #ifdef _SOMEVIDEOPARMS_CPP_
-   ThreadParms gThreadParms;
+   EventParms gEventParms;
 #else
-   extern ThreadParms gThreadParms;
+   extern EventParms gEventParms;
 #endif
 
 //******************************************************************************

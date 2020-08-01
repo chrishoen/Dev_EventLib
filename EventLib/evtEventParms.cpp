@@ -7,13 +7,13 @@
 #include "risCmdLineFile.h"
 
 #define  _SOMEVIDEOPARMS_CPP_
-#include "someThreadParms.h"
+#include "evtEventParms.h"
 
 //******************************************************************************
 //******************************************************************************
 //******************************************************************************
 
-namespace Some
+namespace Evt
 {
 
 //******************************************************************************
@@ -24,17 +24,17 @@ namespace Some
 //******************************************************************************
 // Constructor.
 
-ThreadParms::ThreadParms()
+EventParms::EventParms()
 {
    reset();
 }
 
-void ThreadParms::reset()
+void EventParms::reset()
 {
    BaseClass::reset();
-   //BaseClass::setFileName_RelAlphaFiles("/RisLib/Thread_Parms.txt");
-   //BaseClass::setFilePath("C:/aaa_prime/EventLib/Thread_Parms.txt");
-   BaseClass::setFilePath("/opt/prime/files/Thread_Parms.txt");
+   //BaseClass::setFileName_RelAlphaFiles("/RisLib/Event_Parms.txt");
+   //BaseClass::setFilePath("C:/aaa_prime/EventLib/Event_Parms.txt");
+   BaseClass::setFilePath("/opt/prime/files/Event_Parms.txt");
 
    mDelaySpan1 = 0;
    mDelaySpan2 = 0;
@@ -51,10 +51,10 @@ void ThreadParms::reset()
 //******************************************************************************
 // Show.
 
-void ThreadParms::show()
+void EventParms::show()
 {
    printf("\n");
-   printf("ThreadParms************************************************ %s\n", mTargetSection);
+   printf("EventParms************************************************ %s\n", mTargetSection);
 
    printf("\n");
 
@@ -72,7 +72,7 @@ void ThreadParms::show()
 // member variable.  Only process commands for the target section.This is
 // called by the associated command file object for each command in the file.
 
-void ThreadParms::execute(Ris::CmdLineCmd* aCmd)
+void EventParms::execute(Ris::CmdLineCmd* aCmd)
 {
    if (!isTargetSection(aCmd)) return;
 
@@ -107,7 +107,7 @@ void ThreadParms::execute(Ris::CmdLineCmd* aCmd)
 // Calculate expanded member variables. This is called after the entire
 // section of the command file has been processed.
 
-void ThreadParms::expand()
+void EventParms::expand()
 {
 }
 
