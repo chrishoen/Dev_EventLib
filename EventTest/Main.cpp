@@ -3,7 +3,7 @@
 #include "risThreadsProcess.h"
 #include "risCmdLineConsole.h"
 #include "evtEventThread.h"
-#include "someRandomTimerThread.h"
+#include "evtRandomTimerThread.h"
 
 #include "CmdLineExec.h"
 
@@ -30,10 +30,10 @@ int main(int argc,char** argv)
    Evt::gEventThread = new Evt::EventThread;
    Evt::gEventThread->launchThread();
 
-   Some::gRandomTimerThread1 = new Some::RandomTimerThread(1);
-   Some::gRandomTimerThread2 = new Some::RandomTimerThread(2);
-   Some::gRandomTimerThread1->launchThread();
-   Some::gRandomTimerThread2->launchThread();
+   Evt::gRandomTimerThread1 = new Evt::RandomTimerThread(1);
+   Evt::gRandomTimerThread2 = new Evt::RandomTimerThread(2);
+   Evt::gRandomTimerThread1->launchThread();
+   Evt::gRandomTimerThread2->launchThread();
 
    //***************************************************************************
    //***************************************************************************
@@ -42,8 +42,8 @@ int main(int argc,char** argv)
 
    Ris::Threads::showCurrentThreadInfo();
    if (Evt::gEventThread)         Evt::gEventThread->showThreadInfo();
-   if (Some::gRandomTimerThread1) Some::gRandomTimerThread1->showThreadInfo();
-   if (Some::gRandomTimerThread2) Some::gRandomTimerThread2->showThreadInfo();
+   if (Evt::gRandomTimerThread1) Evt::gRandomTimerThread1->showThreadInfo();
+   if (Evt::gRandomTimerThread2) Evt::gRandomTimerThread2->showThreadInfo();
 
    //***************************************************************************
    //***************************************************************************
@@ -60,8 +60,8 @@ int main(int argc,char** argv)
    // Shutdown program threads.
 
    if (Evt::gEventThread)   Evt::gEventThread->shutdownThread();
-   if (Some::gRandomTimerThread1)   Some::gRandomTimerThread1->shutdownThread();
-   if (Some::gRandomTimerThread2)   Some::gRandomTimerThread2->shutdownThread();
+   if (Evt::gRandomTimerThread1)   Evt::gRandomTimerThread1->shutdownThread();
+   if (Evt::gRandomTimerThread2)   Evt::gRandomTimerThread2->shutdownThread();
 
    //***************************************************************************
    //***************************************************************************
@@ -74,16 +74,16 @@ int main(int argc,char** argv)
       Evt::gEventThread = 0;
    }
 
-   if (Some::gRandomTimerThread1)
+   if (Evt::gRandomTimerThread1)
    {
-      delete Some::gRandomTimerThread1;
-      Some::gRandomTimerThread1 = 0;
+      delete Evt::gRandomTimerThread1;
+      Evt::gRandomTimerThread1 = 0;
    }
 
-   if (Some::gRandomTimerThread2)
+   if (Evt::gRandomTimerThread2)
    {
-      delete Some::gRandomTimerThread2;
-      Some::gRandomTimerThread2 = 0;
+      delete Evt::gRandomTimerThread2;
+      Evt::gRandomTimerThread2 = 0;
    }
 
    //***************************************************************************

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 #include "risThreadsProcess.h"
-#include "someThreadParms.h"
+#include "evtEventParms.h"
 #include "smShare.h"
 #include "evtEventStore.h"
 
@@ -57,8 +57,8 @@ void main_initialize(int argc,char** argv)
    // Read parameters files.
 
    // Read parameters files.
-   Some::gThreadParms.reset();
-   Some::gThreadParms.readSection("default");
+   Evt::gEventParms.reset();
+   Evt::gEventParms.readSection("default");
 
    //***************************************************************************
    //***************************************************************************

@@ -11,8 +11,8 @@
 #include "evtEventStore.h"
 #include "evtEventThread.h"
 #include "evtService.h"
-#include "someThreadParms.h"
-#include "someRandomTimerThread.h"
+#include "evtEventParms.h"
+#include "evtRandomTimerThread.h"
 
 #include "risCmdLineConsole.h"
 #include "CmdLineExec.h"
@@ -155,13 +155,13 @@ void CmdLineExec::executeGo9(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeTP(Ris::CmdLineCmd* aCmd)
 {
-   if (Some::gRandomTimerThread1)
+   if (Evt::gRandomTimerThread1)
    {
-      Some::gRandomTimerThread1->mTPFlag = aCmd->argBool(1);
+      Evt::gRandomTimerThread1->mTPFlag = aCmd->argBool(1);
    }
-   if (Some::gRandomTimerThread2)
+   if (Evt::gRandomTimerThread2)
    {
-      Some::gRandomTimerThread2->mTPFlag = aCmd->argBool(1);
+      Evt::gRandomTimerThread2->mTPFlag = aCmd->argBool(1);
    }
 }
 
@@ -171,7 +171,7 @@ void CmdLineExec::executeTP(Ris::CmdLineCmd* aCmd)
 
 void CmdLineExec::executeParms(Ris::CmdLineCmd* aCmd)
 {
-   Some::gThreadParms.show();
+   Evt::gEventParms.show();
 }
 
 //******************************************************************************

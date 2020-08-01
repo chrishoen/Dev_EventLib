@@ -6,7 +6,7 @@
 //******************************************************************************
 #include "stdafx.h"
 
-#include "evtThreadParms.h"
+#include "evtEventParms.h"
 #include "cmnPriorities.h"
 
 #include "evtService.h"
@@ -23,10 +23,10 @@ namespace Evt
 
 RandomTimerThread::RandomTimerThread(int aIdent)
    : mRandomGen(mRandomDevice()),
-     mRandomDelay(gThreadParms.mDelaySpan1, gThreadParms.mDelaySpan2),
-     mRandomEvtId(gThreadParms.mEvtIdSpan1, gThreadParms.mEvtIdSpan2),
-     mRandomCState(gThreadParms.mCStateSpan1, gThreadParms.mCStateSpan2),
-     mRandomSeverity(gThreadParms.mSeveritySpan1, gThreadParms.mSeveritySpan2)
+     mRandomDelay(gEventParms.mDelaySpan1, gEventParms.mDelaySpan2),
+     mRandomEvtId(gEventParms.mEvtIdSpan1, gEventParms.mEvtIdSpan2),
+     mRandomCState(gEventParms.mCStateSpan1, gEventParms.mCStateSpan2),
+     mRandomSeverity(gEventParms.mSeveritySpan1, gEventParms.mSeveritySpan2)
 {
    mIdent = aIdent;
    mTPFlag = false;
