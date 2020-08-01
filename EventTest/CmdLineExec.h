@@ -67,6 +67,7 @@ public:
    void executeGo9(Ris::CmdLineCmd* aCmd);
 
    void executeTP(Ris::CmdLineCmd* aCmd);
+   void executeHelp(Ris::CmdLineCmd* aCmd);
    void executeParms(Ris::CmdLineCmd* aCmd);
    void executeShow(Ris::CmdLineCmd* aCmd);
 };

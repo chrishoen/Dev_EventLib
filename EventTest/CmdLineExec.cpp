@@ -41,7 +41,7 @@ void CmdLineExec::reset()
 
 void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
 {
-   if (aCmd->isCmd("P"))         Prn::toggleSuppressPrint();
+   if (aCmd->isCmd("T"))         Prn::toggleSuppressPrint();
    if (aCmd->isCmd("S"))         Prn::suppressPrint();
    if (aCmd->isCmd("U"))         Prn::unsuppressPrint();
    if (aCmd->isCmd("Send1"))     executeSend1(aCmd);
@@ -56,6 +56,7 @@ void CmdLineExec::execute(Ris::CmdLineCmd* aCmd)
    if (aCmd->isCmd("GO8"))       executeGo8(aCmd);
    if (aCmd->isCmd("GO9"))       executeGo9(aCmd);
    if (aCmd->isCmd("TP"))        executeTP(aCmd);
+   if (aCmd->isCmd("Help"))      executeHelp(aCmd);
    if (aCmd->isCmd("Parms"))     executeParms(aCmd);
    if (aCmd->isCmd("Show"))      executeShow(aCmd);
 }
@@ -187,6 +188,24 @@ void CmdLineExec::executeTP(Ris::CmdLineCmd* aCmd)
    {
       Evt::gRandomTimerThread2->mTPFlag = aCmd->argBool(1);
    }
+}
+
+//******************************************************************************
+//******************************************************************************
+//******************************************************************************
+
+void CmdLineExec::executeHelp(Ris::CmdLineCmd* aCmd)
+{
+   Prn::print(0, "miniscule help ***********************************");
+   Prn::print(0, "command arguments");
+   Prn::print(0, "evtid    is the eventid 0,1,2,3; 0 is type1, 123 are type2");
+   Prn::print(0, "cstate   is the condtion state, true/false active/inactive");
+   Prn::print(0, "severity is default,info,severe,critical, 0,1,2,3");
+   Prn::print(0, "commands");
+   Prn::print(0, "send1 evetid,cstate,severity  -- sends to the event thread");
+   Prn::print(0, "send2 evetid,cstate,severity  -- sends to the event thread, sets the args");
+   Prn::print(0, "tp 0/1   -- disable/enable the random timer threads");
+   Prn::print(0, "t        -- toggle the suppression of console prints");
 }
 
 //******************************************************************************
