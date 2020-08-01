@@ -36,6 +36,7 @@ void EventParms::reset()
    //BaseClass::setFilePath("C:/aaa_prime/EventLib/Event_Parms.txt");
    BaseClass::setFilePath("/opt/prime/files/Event_Parms.txt");
 
+   mPrintCode = 0;
    mDelaySpan1 = 0;
    mDelaySpan2 = 0;
    mEvtIdSpan1 = 0;
@@ -59,6 +60,8 @@ void EventParms::show()
    printf("\n");
 
    printf("\n");
+   printf("PrintCode                %-10d\n", mPrintCode);
+   printf("\n");
    printf("DelaySpan                %-10d %-4d\n", mDelaySpan1, mDelaySpan2);
    printf("EvtIdSpan                %-10d %-4d\n", mEvtIdSpan1, mEvtIdSpan2);
    printf("CStateSpan               %-10d %-4d\n", mCStateSpan1, mCStateSpan2);
@@ -75,6 +78,8 @@ void EventParms::show()
 void EventParms::execute(Ris::CmdLineCmd* aCmd)
 {
    if (!isTargetSection(aCmd)) return;
+
+   if (aCmd->isCmd("PrintCode")) mPrintCode = aCmd->argInt(1);
 
    if (aCmd->isCmd("DelaySpan"))
    {

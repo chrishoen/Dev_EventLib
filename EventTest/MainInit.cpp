@@ -37,28 +37,41 @@ void main_initialize(int argc,char** argv)
    //***************************************************************************
    //***************************************************************************
    //***************************************************************************
-   // Initialize print facility.
-
-   // Initialize print.
-   Prn::resetPrint();
-   Prn::useConsole(1);
-   Prn::useConsole(2);
-   Prn::initializePrint();
-
-   // Initialize print filters.
-   Prn::setFilter(Prn::View11, true,  1);
-   Prn::setFilter(Prn::View12, false, 1);
-   Prn::setFilter(Prn::View21, true,  2);
-   Prn::setFilter(Prn::View22, false, 2);
-
-   //***************************************************************************
-   //***************************************************************************
-   //***************************************************************************
    // Read parameters files.
 
    // Read parameters files.
    Evt::gEventParms.reset();
    Evt::gEventParms.readSection("default");
+
+   //***************************************************************************
+   //***************************************************************************
+   //***************************************************************************
+   // Initialize print facility.
+
+   // Initialize print.
+
+   if (Evt::gEventParms.mPrintCode == 0)
+   {
+      Prn::resetPrint();
+      Prn::useConsole(1);
+      Prn::useConsole(2);
+      Prn::initializePrint();
+
+      Prn::setFilter(Prn::View11, true, 1);
+      Prn::setFilter(Prn::View12, false, 1);
+      Prn::setFilter(Prn::View21, true, 2);
+      Prn::setFilter(Prn::View22, false, 2);
+   }
+   else
+   {
+      Prn::resetPrint();
+      Prn::initializePrint();
+
+      Prn::setFilter(Prn::View11, true);
+      Prn::setFilter(Prn::View12, false);
+      Prn::setFilter(Prn::View21, false);
+      Prn::setFilter(Prn::View22, false);
+   }
 
    //***************************************************************************
    //***************************************************************************

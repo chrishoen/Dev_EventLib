@@ -157,7 +157,7 @@ bool EventTableRecord::update(EventRecord* aEventRecord)
    // Done.
 
    // Decrement the pending count.
-   Prn::print(Prn::View11, "PendingCount201 %d",
+   Prn::print(Prn::View14, "PendingCount201 %d",
       mPendingCount.load());
    if (--mPendingCount < 0)
    {

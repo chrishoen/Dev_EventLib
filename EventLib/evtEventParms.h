@@ -67,6 +67,9 @@ public:
    //***************************************************************************
    // Members.
 
+   // Print code.
+   int mPrintCode;
+
    // Random integer bounds.
    int mDelaySpan1;
    int mDelaySpan2;

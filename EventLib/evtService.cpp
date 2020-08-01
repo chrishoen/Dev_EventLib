@@ -30,7 +30,7 @@ namespace Evt
 
 void doSendEvent(int aEvtId, bool aCState, int aSeverity)
 {
-   Prn::print(Prn::View11, "PendingCount101 %d",
+   Prn::print(Prn::View14, "PendingCount101 %d",
       gEventStore.mEventTable.mArray[aEvtId].mPendingCount.load());
 
    // Increment the pending count.
