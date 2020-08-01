@@ -197,15 +197,18 @@ void CmdLineExec::executeTP(Ris::CmdLineCmd* aCmd)
 void CmdLineExec::executeHelp(Ris::CmdLineCmd* aCmd)
 {
    Prn::print(0, "miniscule help ***********************************");
+   Prn::print(0, "");
    Prn::print(0, "command arguments");
    Prn::print(0, "evtid    is the eventid 0,1,2,3; 0 is type1, 123 are type2");
-   Prn::print(0, "cstate   is the condtion state, true/false active/inactive");
+   Prn::print(0, "cstate   is the condtion state, true/false");
    Prn::print(0, "severity is default,info,severe,critical, 0,1,2,3");
+   Prn::print(0, "");
    Prn::print(0, "commands");
-   Prn::print(0, "send1 evetid,cstate,severity  -- sends to the event thread");
-   Prn::print(0, "send2 evetid,cstate,severity  -- sends to the event thread, sets the args");
-   Prn::print(0, "tp 0/1   -- disable/enable the random timer threads");
-   Prn::print(0, "t        -- toggle the suppression of console prints");
+   Prn::print(0, "send1 evtid,cstate,severity  -- send an event to the event thread");
+   Prn::print(0, "send2 evtid,cstate,severity  -- send an event to the event thread, sets the args");
+   Prn::print(0, "tp 0/1                       -- disable/enable the random timer threads");
+   Prn::print(0, "t                            -- toggle the suppression of console prints");
+   Prn::print(0, "");
 }
 
 //******************************************************************************
