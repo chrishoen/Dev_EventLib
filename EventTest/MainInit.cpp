@@ -57,6 +57,7 @@ void main_initialize(int argc,char** argv)
       Prn::useConsole(2);
       Prn::initializePrint();
 
+      Prn::setFilter(Prn::View01, true);
       Prn::setFilter(Prn::View11, true, 1);
       Prn::setFilter(Prn::View12, false, 1);
       Prn::setFilter(Prn::View21, true, 2);
@@ -67,6 +68,7 @@ void main_initialize(int argc,char** argv)
       Prn::resetPrint();
       Prn::initializePrint();
 
+      Prn::setFilter(Prn::View01, true);
       Prn::setFilter(Prn::View11, true);
       Prn::setFilter(Prn::View12, false);
       Prn::setFilter(Prn::View21, false);
